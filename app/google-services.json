@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "167666211114",
+    "firebase_url": "https://litproproject-42779.firebaseio.com",
+    "project_id": "litproproject-42779",
+    "storage_bucket": "litproproject-42779.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167666211114:android:3edf9a16f20e5fb3",
+        "android_client_info": {
+          "package_name": "com.example.dneprovdanila.litpro_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167666211114-u096u25pdqtdtjllglstj1p2pne7dbcc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dneprovdanila.litpro_project",
+            "certificate_hash": "ffd19f04c614ccac921a1d4f12f2efe445a44209"
+          }
+        },
+        {
+          "client_id": "167666211114-ui04hc81linustg0mr9pbt8maubjse5e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALLwcj6fQ1poeW8W1m_7pmw5M8IxUrjGU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167666211114-ui04hc81linustg0mr9pbt8maubjse5e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
