@@ -32,4 +32,5 @@ dependencies {
     //implementation 'com.google.firebase:firebase-auth:16.0.1:15.0.0' //было, сейчас самая поздняя версия
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.android.support:design:27.1.1'
 }
