@@ -44,6 +44,15 @@ import com.google.firebase.auth.FirebaseUser;
 
     }
 
+     @Override
+     protected void onStart() {
+         super.onStart();
+
+         if (mAuth.getCurrentUser() != null) {
+             finish();
+             startActivity(new Intent(this, MainActivity.class));
+         }
+     }
 
     private void registerUser()
     {
@@ -104,19 +113,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 
-
-    /* @Override
-     protected void onStart() {
-         super.onStart();
-
-         if (mAuth.getCurrentUser() != null) {
-             finish();
-             startActivity(new Intent(this, MainActivity.class));
-         }
-     }
-*/
-
-
      @Override
      public void onClick(View v) {
          switch (v.getId())
@@ -124,7 +120,9 @@ import com.google.firebase.auth.FirebaseUser;
              case R.id.button_signUp:
                  registerUser();
                  break;
+
              case R.id.button_back:
+                 finish();// точно?
                  startActivity(new Intent(this, LogInActivity.class));
                  break;
 

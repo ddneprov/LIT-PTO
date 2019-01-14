@@ -45,6 +45,19 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (mAuth.getCurrentUser() != null) {
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
+        }
+    }
+
+
+
     private void userLogin() {
         String email = editText_login_1.getText().toString().trim();
         String password = editText_password_1.getText().toString().trim();
@@ -90,22 +103,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
-
-
-
-
-
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-
-        if (mAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(this, MainActivity.class));
-        }
-    }*/
-
-
 
 
 
