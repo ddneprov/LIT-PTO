@@ -3,12 +3,11 @@ package com.example.dneprovdanila.litpro_project;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -27,8 +26,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.Random;
 
-public class Profile extends AppCompatActivity implements View.OnClickListener{
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int CHOOSE_IMAGE = 101;
     ImageView imageView;
@@ -66,6 +66,18 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
+
+        //TODO:сделай рандом фотографий
+         /*  int[] images = {R.drawable.girlone,R.drawable.girltwo,R.drawable.girlthree,R.drawable.girlfour};
+         Random rand = new Random();
+        imageView.setImageResource(images[rand.nextInt(images.length)]);*/
+
+        findViewById(R.id.one).setOnClickListener(this);
+        findViewById(R.id.two).setOnClickListener(this);
+        findViewById(R.id.three).setOnClickListener(this);
+        findViewById(R.id.four).setOnClickListener(this);
+
+        findViewById(R.id.settings).setOnClickListener(this);
     }
 
 
@@ -105,6 +117,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
         FirebaseUser user = mAuth.getCurrentUser();
 
+
         if (user != null && profileImageUrl != null) {
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayName)
@@ -116,7 +129,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(Profile.this, "Профиль обновлен", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "Профиль обновлен", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -212,5 +225,32 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
+        switch (v.getId())
+        {
+            case R.id.one:
+                finish();
+                startActivity(new Intent(this, CourseActivity.class));
+                break;
+
+            case R.id.two:
+                finish();
+                startActivity(new Intent(this, TaskActivity.class));
+                break;
+
+            case R.id.three:
+                finish();
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+
+            case R.id.four:
+                finish();
+                startActivity(new Intent(this, NontificationActivity.class));
+                break;
+
+            case R.id.settings:
+                finish();
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+        }
     }
 }

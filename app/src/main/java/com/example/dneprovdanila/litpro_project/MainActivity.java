@@ -12,9 +12,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        findViewById(R.id.button2).setOnClickListener(this);
-        findViewById(R.id.button).setOnClickListener(this);
+        findViewById(R.id.one).setOnClickListener(this);
+        findViewById(R.id.two).setOnClickListener(this);
+        findViewById(R.id.four).setOnClickListener(this);
+        findViewById(R.id.five).setOnClickListener(this);
 
     }
 
@@ -22,9 +23,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.button2:
+            case R.id.one:
                 finish();
-                startActivity(new Intent(this, Profile.class));
+                startActivity(new Intent(this, CourseActivity.class));
+                break;
+
+            case R.id.two:
+                finish();
+                startActivity(new Intent(this, TaskActivity.class));
+                break;
+
+            case R.id.four:
+                finish();
+                startActivity(new Intent(this, NontificationActivity.class));
+                break;
+
+
+            case R.id.five:
+                finish();
+                startActivity(new Intent(this, ProfileActivity.class));
                 break;
         }
     }

@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LogInActivity"
-    android:background ="@drawable/log_in">
+    android:background ="@drawable/backgroundlogin">
 
 
     <EditText
         android:id="@+id/editText_login_1"
-        android:layout_width="250dp"
+        android:layout_width="280dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -18,18 +18,20 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/rectangle_login"
         android:ems="10"
+        android:fontFamily="@font/old_standard_tt"
         android:hint="Почта"
-        android:paddingLeft="10dp"
         android:inputType="textPersonName"
+        android:paddingLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.346" />
+        app:layout_constraintVertical_bias="0.317" />
 
     <EditText
         android:id="@+id/editText_password_1"
-        android:layout_width="250dp"
+        android:layout_width="280dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -37,24 +39,28 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/rectangle_password"
         android:ems="10"
+        android:fontFamily="@font/old_standard_tt"
         android:hint="Пароль"
-        android:paddingLeft="10dp"
         android:inputType="textPassword"
+        android:paddingLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.455" />
+        app:layout_constraintVertical_bias="0.399" />
 
     <Button
         android:id="@+id/button_registration"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="406dp"
+        android:layout_width="wrap_content"
         android:layout_height="46dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="229dp"
         android:background="@drawable/noacc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -65,7 +71,7 @@
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="140dp"
         android:background="@drawable/remember"
         app:layout_constraintBottom_toTopOf="@+id/button_registration"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,8 +82,8 @@
         android:layout_width="320dp"
         android:layout_height="21dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/remember"
+        android:layout_marginBottom="236dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_registration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +100,9 @@
         android:background="@drawable/login"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_password_1" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_password_1"
+        app:layout_constraintVertical_bias="0.11" />
 
 </android.support.constraint.ConstraintLayout>
