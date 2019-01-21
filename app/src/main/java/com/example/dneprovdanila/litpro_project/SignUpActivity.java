@@ -1,13 +1,17 @@
  package com.example.dneprovdanila.litpro_project;
 
 import android.content.Intent;
+import android.os.Binder;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -20,85 +24,141 @@ import com.google.firebase.auth.FirebaseUser;
 
  public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText editText_email_2, editText_password_2;
-    private FirebaseAuth mAuth;
-    // ProgressBar progressBar;
+     //EditText editText_email_2, editText_password_2;
+
+     /*private TextInputLayout mDisplayName;
+     private TextInputLayout mEmail;
+     private TextInputLayout mPassword;*/
+
+     private EditText mDisplayName;
+     private EditText mEmail;
+     private EditText mPassword;
 
 
+     private Button mSignUp;
+     private Button mBack;
 
+
+     private FirebaseAuth mAuth;
+     // ProgressBar progressBar;
 
      @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_sign_up);
 
-        findViewById(R.id.button_signUp).setOnClickListener(this);
-        findViewById(R.id.button_back).setOnClickListener(this);
+         // FireBase Auth
+         mAuth = FirebaseAuth.getInstance();
 
-         //progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
-         editText_email_2 = (EditText) findViewById(R.id.editText_email_2);
-         editText_password_2 = (EditText) findViewById(R.id.editText_password_2);
+         mDisplayName = (EditText) findViewById(R.id.reg_display_name);
+         mEmail = (EditText) findViewById(R.id.reg_email);
+         mPassword = (EditText) findViewById(R.id.reg_password);
+         mSignUp = (Button) findViewById(R.id.button_signUp);
+         mBack = (Button) findViewById(R.id.button_back);
 
-        mAuth = FirebaseAuth.getInstance();
 
-    }
+         mSignUp.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 String display_name = mDisplayName.getText().toString().trim();
+                 String email = mEmail.getText().toString().trim();
+                 String password = mPassword.getText().toString().trim();
+                 registerUser(email, password, display_name);
+             }
+         });
+     }
+
 
      @Override
      protected void onStart() {
          super.onStart();
-
          if (mAuth.getCurrentUser() != null) {
              finish();
              startActivity(new Intent(this, MainActivity.class));
          }
      }
 
-    private void registerUser()
-    {
-        String login = editText_email_2.getText().toString().trim();
-        String password = editText_password_2.getText().toString().trim();
+     @Override
+     public void onClick(View v) {
+         switch (v.getId()) {
+             case R.id.button_back:
+                 finish();// точно?
+                 startActivity(new Intent(this, LogInActivity.class));
+                 break;
+             /*case R.id.button_signUp:
+                 String display_name = mDisplayName.getEditText().toString();
+                 String email = mDisplayName.getEditText().toString();
+                 String password = mDisplayName.getEditText().toString();
+                 registerUser(display_name, email, password);
+                 break;*/
+         }
+     }
 
-        if (login.isEmpty())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// //////////////////////
+
+
+
+    private void registerUser(String email, String password, String display_name)
+    {
+
+        if (email.isEmpty())
         {
-            editText_email_2.setError("Введите почту");
-            editText_email_2.requestFocus();
+            mEmail.setError("Введите почту");
+            mEmail.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(login).matches())
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
-            editText_email_2.setError("Неверная почта");
-            editText_email_2.requestFocus();
+            mEmail.setError("Неверная почта");
+            mEmail.requestFocus();
             return;
         }
 
         if (password.isEmpty())
         {
-            editText_password_2.setError("Введите пароль");
-            editText_password_2.requestFocus();
+            mPassword.setError("Введите пароль");
+            mPassword.requestFocus();
             return;
         }
 
         if (password.length() < 7)
         {
-            editText_password_2.setError("Пароль должен быть длиннее 6 символов");
-            editText_password_2.requestFocus();
+            mPassword.setError("Пароль должен быть длиннее 6 символов");
+            mPassword.requestFocus();
             return;
         }
 
-        //
         //progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.createUserWithEmailAndPassword(login, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
                         //progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            finish();
                             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                            finish();
                         }
                         else
                         {
@@ -109,24 +169,4 @@ import com.google.firebase.auth.FirebaseUser;
                     }
                 });
     }
-
-
-
-
-     @Override
-     public void onClick(View v) {
-         switch (v.getId())
-         {
-             case R.id.button_signUp:
-                 registerUser();
-                 break;
-
-             case R.id.button_back:
-                 finish();// точно?
-                 startActivity(new Intent(this, LogInActivity.class));
-                 break;
-
-
-         }
-     }
  }

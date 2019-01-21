@@ -54,6 +54,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             finish();
             startActivity(new Intent(this, MainActivity.class));
         }
+        /*else
+        {
+            Intent sign_up = new Intent(this, SignUpActivity.class);
+            startActivity(sign_up);
+            finish();
+        }*/
     }
 
 
@@ -68,20 +74,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editText_login_1.setError("Please enter a valid email");
-            editText_login_1.requestFocus();
-            return;
-        }
-
         if (password.isEmpty()) {
             editText_password_1.setError("Password is required");
-            editText_password_1.requestFocus();
-            return;
-        }
-
-        if (password.length() < 6) {
-            editText_password_1.setError("Minimum lenght of password should be 6");
             editText_password_1.requestFocus();
             return;
         }
@@ -115,7 +109,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         {
             case R.id.button_login:
                 userLogin();
-                //startActivity(new Intent(this, MainActivity.class));
                 break;
 
             case button_registration:
