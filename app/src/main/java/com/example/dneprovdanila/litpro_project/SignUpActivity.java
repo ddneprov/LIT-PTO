@@ -21,24 +21,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
  public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
-
-     //EditText editText_email_2, editText_password_2;
-
-     /*private TextInputLayout mDisplayName;
-     private TextInputLayout mEmail;
-     private TextInputLayout mPassword;*/
 
      private EditText mDisplayName;
      private EditText mEmail;
      private EditText mPassword;
-
-
      private Button mSignUp;
      private Button mBack;
-
-
      private FirebaseAuth mAuth;
      // ProgressBar progressBar;
 
@@ -61,10 +54,7 @@ import com.google.firebase.auth.FirebaseUser;
          mSignUp.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 String display_name = mDisplayName.getText().toString().trim();
-                 String email = mEmail.getText().toString().trim();
-                 String password = mPassword.getText().toString().trim();
-                 registerUser(email, password, display_name);
+                 registerUser();
              }
          });
      }
@@ -97,53 +87,42 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// //////////////////////
 
 
 
-    private void registerUser(String email, String password, String display_name)
-    {
+    private void registerUser(){//String email, final String password, String display_name) {
 
-        if (email.isEmpty())
-        {
+        final String display_name = mDisplayName.getText().toString().trim();
+        final String email = mEmail.getText().toString().trim();
+        final String password = mPassword.getText().toString().trim();
+
+        if (email.isEmpty()) {
             mEmail.setError("Введите почту");
             mEmail.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
-        {
+        if (display_name.isEmpty()) {
+            mDisplayName.setError("Нужно ввести имя");
+            mDisplayName.requestFocus();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             mEmail.setError("Неверная почта");
             mEmail.requestFocus();
             return;
         }
 
-        if (password.isEmpty())
-        {
-            mPassword.setError("Введите пароль");
+        if (password.isEmpty()) {
+            mPassword.setError("Придумайте пароль");
             mPassword.requestFocus();
             return;
         }
 
-        if (password.length() < 7)
-        {
-            mPassword.setError("Пароль должен быть длиннее 6 символов");
+        if (password.length() < 7) {
+            mPassword.setError("Пароль должен содержать больше 6 симолов");
             mPassword.requestFocus();
             return;
         }
@@ -157,8 +136,48 @@ import com.google.firebase.auth.FirebaseUser;
                     {
                         //progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                            finish();
+
+
+
+                          /*  ArrayList<String> people = new ArrayList<String>();
+                            people.add("Masha");
+                            people.add("Kate");
+                            people.add("Glasha");*/
+
+                            User user = new User( display_name, email, password );
+                            //Staff staff = new Staff(display_name, email, password, people);
+
+                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
+                                    .getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful())
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Готово!", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                        finish();
+
+                                    }
+                                }
+                            });
+
+                            /*FirebaseDatabase.getInstance().getReference("Staff").child(FirebaseAuth.getInstance()
+                                    .getCurrentUser().getUid())
+                                    .setValue(staff).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful())
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Готово!", Toast.LENGTH_SHORT).show();
+
+                                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                        finish();
+
+                                    }
+                                }
+                            });*/
+
                         }
                         else
                         {
@@ -169,4 +188,7 @@ import com.google.firebase.auth.FirebaseUser;
                     }
                 });
     }
+
+
+
  }

@@ -1,155 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
-
-    # фото
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-    # нижняя рамка
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:background="@drawable/down"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        #рамка с иконками
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
-
-            <ImageButton
-                android:id="@+id/one"
-                android:layout_width="38.79dp"
-                android:layout_height="39dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="18dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/one" />
-
-            <ImageButton
-                android:id="@+id/two"
-                android:layout_width="32.23dp"
-                android:layout_height="39dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="33dp"
-                android:layout_marginBottom="4dp"
-                android:layout_toEndOf="@+id/one"
-                android:background="@drawable/two" />
-
-
-            <ImageButton
-                android:id="@+id/three"
-                android:layout_width="40.7dp"
-                android:layout_height="36.4dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/three" />
-
-
-            <ImageButton
-                android:id="@+id/four"
-                android:layout_width="32.2dp"
-                android:layout_height="39dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="101dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/four" />
-
-            <ImageButton
-                android:id="@+id/five"
-                android:layout_width="32.197dp"
-                android:layout_height="39dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/fivechoosed" />
-        </RelativeLayout>
-    </RelativeLayout>
-
+    tools:context=".ProfileActivity">
 
     <Button
         android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="132dp"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_below="@+id/editText"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:text="Save" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="216dp"
         android:ems="10"
         android:fontFamily="@font/old_standard_tt"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0"
-        tools:text="как ваше имя" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageView"
+        android:hint="как вас зовут" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/girlone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+        android:layout_marginTop="110dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/girlone" />
 
 
     <RelativeLayout
@@ -161,11 +44,16 @@
             android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:background="@drawable/up"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@drawable/up" />
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@android:drawable/star_on" />
 
         <TextView
             android:id="@+id/textView2"
@@ -179,33 +67,19 @@
             android:textSize="25sp" />
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@android:drawable/star_on"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <Button
         android:id="@+id/logout"
         style="@android:style/Widget.DeviceDefault.Light.Button.Borderless.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/caveat"
         android:text="Выйти"
+        android:layout_marginTop="18dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_alignParentRight="true"
         android:textColor="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSave" />
+        />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -1,113 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-    #ебаная рамка
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="0dp"
-        android:layout_height="51dp"
-        android:background="@drawable/down"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
-
-            <ImageButton
-                android:id="@+id/one"
-                android:layout_width="38.79dp"
-                android:layout_height="39dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/one" />
-
-            <ImageButton
-                android:id="@+id/two"
-                android:layout_width="32.23dp"
-                android:layout_height="39dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="97dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/two" />
-
-
-            <ImageButton
-                android:id="@+id/three"
-                android:layout_width="40.7dp"
-                android:layout_height="36.4dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/threechoosed" />
-
-
-            <ImageButton
-                android:id="@+id/four"
-                android:layout_width="32.2dp"
-                android:layout_height="39dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="92dp"
-                android:layout_marginBottom="3dp"
-                android:background="@drawable/four" />
-
-            <ImageButton
-                android:id="@+id/five"
-                android:layout_width="32.197dp"
-                android:layout_height="39dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/five" />
-        </RelativeLayout>
-    </RelativeLayout>
+    
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"/>
+    
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemTextColor="@color/colorAccent"
+        app:itemIconTint="@color/colorAccent"
+        app:menu="@menu/bottom_navigation" />
 
 
 
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="45dp">
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:background="@drawable/up"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView2"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/ruslan_display"
-            android:text="СООБЩЕНИЯ"
-            android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="35sp" />
-    </RelativeLayout>
-
-
-
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

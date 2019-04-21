@@ -32,12 +32,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private static final int CHOOSE_IMAGE = 101;
     ImageView imageView;
     EditText editText;
-    ProgressBar progressBar;
+
+    // ProgressBar progressBar;
     String profileImageUrl;
     Uri uriProfileImage;
     FirebaseAuth mAuth;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         imageView = (ImageView) findViewById(R.id.imageView);
         editText = (EditText) findViewById(R.id.editText);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        //progressBar = (ProgressBar) findViewById(R.id.progressbar);
         mAuth = FirebaseAuth.getInstance();
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +77,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    ////////
     private void loadUserInformation() {
         final FirebaseUser user = mAuth.getCurrentUser();
 
@@ -96,9 +94,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             }
         }
     }
-    ///////
-
-
 
     private void saveUserInformation() {
         String displayName = editText.getText().toString();
@@ -148,19 +143,17 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-
     private void uploadImageToFirebaseStorage() {
         final StorageReference profileImageRef =
                 FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
 
-
         if (uriProfileImage != null) {
-            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.VISIBLE);
             profileImageRef.putFile(uriProfileImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressBar.setVisibility(View.GONE);
+                            //progressBar.setVisibility(View.GONE);
                             profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -179,7 +172,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressBar.setVisibility(View.GONE);
+                            //progressBar.setVisibility(View.GONE);
                             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
@@ -196,7 +189,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-
     private void sendToStart() {
         finish();
         startActivity(new Intent(this, LogInActivity.class));
@@ -209,10 +201,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
     }
-
-
-
-
 
     @Override
     public void onClick(View v) {

@@ -6,7 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +31,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.Random;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int CHOOSE_IMAGE = 101;
     ImageView imageView;
@@ -38,19 +41,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
+        setContentView(R.layout.fragment_profile);
         imageView = (ImageView) findViewById(R.id.imageView);
         mAuth = FirebaseAuth.getInstance();
-
-
-        findViewById(R.id.one).setOnClickListener(this);
-        findViewById(R.id.two).setOnClickListener(this);
-        findViewById(R.id.three).setOnClickListener(this);
-        findViewById(R.id.four).setOnClickListener(this);
-
         findViewById(R.id.settings).setOnClickListener(this);
     }
+
 
 
     @Override
@@ -62,32 +58,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
     @Override
     public void onClick(View v) {
 
         switch (v.getId())
         {
-            case R.id.one:
-                finish();
-                startActivity(new Intent(this, CourseActivity.class));
-                break;
-
-            case R.id.two:
-                finish();
-                startActivity(new Intent(this, TaskActivity.class));
-                break;
-
-            case R.id.three:
-                finish();
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-
-            case R.id.four:
-                finish();
-                startActivity(new Intent(this, NontificationActivity.class));
-                break;
-
             case R.id.settings:
                 finish();
                 startActivity(new Intent(this, SettingsActivity.class));

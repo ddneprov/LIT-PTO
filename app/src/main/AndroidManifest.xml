@@ -19,15 +19,13 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".SettingsActivity" />
+
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".NontificationActivity" />
-        <activity android:name=".CourseActivity" />
-        <activity android:name=".TaskActivity" />
-        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>
