@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/girltwo" />
+
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/up" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/ruslan_display"
+        android:text="ПРОФИЛЬ"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="25sp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pupils_list">
+    </android.support.v7.widget.RecyclerView>
+
+
+    <ImageView
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="35dp"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+
+    <TextView
+        android:id="@+id/pupil_name1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="96dp"
+        android:layout_marginBottom="70dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/pupil_name2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/pupil_name1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="63dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="15dp"
+        android:fontFamily="@font/lobster"
+        android:text="/?"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

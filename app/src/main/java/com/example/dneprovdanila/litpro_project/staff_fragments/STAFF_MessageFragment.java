@@ -1,4 +1,4 @@
-package com.example.dneprovdanila.litpro_project;
+package com.example.dneprovdanila.litpro_project.staff_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,19 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class NontificationFragment extends Fragment {
+import com.example.dneprovdanila.litpro_project.R;
+
+public class STAFF_MessageFragment extends Fragment {
 
 
-    public NontificationFragment() {
-        // Required empty public constructor
+    public STAFF_MessageFragment() {
+
     }
-
 
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_nontification,container, false);
+        return inflater.inflate(R.layout.fragment_staff_message,container, false);
     }
 }

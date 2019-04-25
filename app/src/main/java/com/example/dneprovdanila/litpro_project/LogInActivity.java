@@ -3,22 +3,22 @@ package com.example.dneprovdanila.litpro_project;
 
 
 import android.content.Intent;
+import android.os.ParcelUuid;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Patterns;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-import java.util.regex.Pattern;
 
+import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_MainActivity;
+import com.example.dneprovdanila.litpro_project.users_fragments.MainActivity;
+import com.example.dneprovdanila.litpro_project.users_fragments.TaskFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,30 +26,73 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import static com.example.dneprovdanila.litpro_project.R.id.button_registration;
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener{
-
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText editText_login_1, editText_password_1;
     FirebaseAuth mAuth;
-    DatabaseReference jLoginDatabase;
-    //ProgressBar progressBar;
+    DatabaseReference myRef;
+    ProgressBar progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-
         mAuth = FirebaseAuth.getInstance();
-
+        myRef = FirebaseDatabase.getInstance().getReference();
         editText_login_1 = (EditText) findViewById(R.id.editText_login_1);
         editText_password_1 = (EditText) findViewById(R.id.editText_password_1);
-        //progressBar = (ProgressBar) кfindViewById(R.id.progressbar);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
         findViewById(R.id.button_registration).setOnClickListener(this);
         findViewById(R.id.button_login).setOnClickListener(this);
+    }
+
+
+
+    public static Integer COUNTER = 0;
+    public String answer;
+    public  String staff = "STAFF";
+    public  String user = "USER";
+    private void is_it_USER(final String email)
+    {
+        //myRef.child("Users").addValueEventListener(new ValueEventListener() {
+        myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
+                    String data_mail = dSnapshot.getValue(User.class).getEmail();
+                    if (data_mail.toString().equals(email.toString())) {
+                        answer = "USER";
+                        return;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+
+    private void is_it_STAFF(final String email)
+    {
+        COUNTER += 1;
+        //myRef.child("Staff").addValueEventListener(new ValueEventListener() {
+        myRef.child("Staff").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
+                    String data_mail = dSnapshot.getValue(User.class).getEmail();
+                    if(data_mail.toString().equals(email.toString()))
+                    {
+                        answer = "STAFF";
+                        return;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
 
     }
 
@@ -58,23 +101,31 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (mAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(this, MainActivity.class));
-        }
-        /*else
+        if (mAuth.getCurrentUser() != null)
         {
-            Intent sign_up = new Intent(this, SignUpActivity.class);
-            startActivity(sign_up);
-            finish();
-        }*/
+            //Globals.status = "";
+            final String email = mAuth.getCurrentUser().getEmail();
+            is_it_STAFF(email);
+            is_it_USER(email);
+
+            if(user.equals(answer))
+            {
+                finish();
+                startActivity(new Intent(this, MainActivity.class));
+            }
+
+            else if(staff.equals(answer))
+            {
+                finish();
+                startActivity(new Intent(this, STAFF_MainActivity.class));
+            }
+        }
     }
 
 
 
     private void userLogin() {
-        String email = editText_login_1.getText().toString().trim();
+        final String email = editText_login_1.getText().toString().trim();
         String password = editText_password_1.getText().toString().trim();
 
         if (email.isEmpty()) {
@@ -89,125 +140,40 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        //progressBar.setVisibility(View.VISIBLE);
-
+        progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                //progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
-                    //finish();
+                    progressBar.setVisibility(View.GONE);
+                    is_it_STAFF(email.toString());
+                    //String line = answer;
+                    if ("STAFF".equals(answer))
+                    {
+                        finish();
+                        Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                        startActivity(intent);
+                    }
 
-
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    String RegisteredUserID = currentUser.getUid();
-
-                    jLoginDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(RegisteredUserID);
-                    jLoginDatabase.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String userType = dataSnapshot.child("userType").getValue().toString();
-
-                            if(userType.equals("Resident")){
-                                Intent intentResident = new Intent(LogInActivity.this, MainActivity.class);
-                                intentResident.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intentResident);
-                                finish();
-                            }else if(userType.equals("Guard")){
-                                Intent intentMain = new Intent(LogInActivity.this, MainActivity.class);
-                                intentMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intentMain);
-                                finish();
-                            }else if(userType.equals("Police")){
-                                Intent intentMain = new Intent(LogInActivity.this, MainActivity.class);
-                                intentMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intentMain);
-                                finish();
-                            }else{
-                                Toast.makeText(LogInActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-
-
-                        //finish();
-                        ///ВЕРНИ
-                        /*Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);*/
-                } else {
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    //line = answer;
+                    if ("USER".equals(answer))
+                    {
+                        finish();
+                        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
     }
 
-
-   /* private void loginUser() {
-
-        final String userLoginEmail = editText_login_1.getText().toString().trim();
-        final String userLoginPassword = editText_password_1.getText().toString().trim();
-        mAuth.signInWithEmailAndPassword(userLoginEmail, userLoginPassword)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-
-                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                            String RegisteredUserID = currentUser.getUid();
-
-                            jLoginDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(RegisteredUserID);
-
-                            jLoginDatabase.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    String userType = dataSnapshot.child("userType").getValue().toString();
-                                    if(userType.equals("Resident")){
-                                        Intent intentResident = new Intent(LoginActivity.this, ResidentActivity.class);
-                                        intentResident.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intentResident);
-                                        finish();
-                                    }else if(userType.equals("Guard")){
-                                        Intent intentMain = new Intent(LoginActivity.this, SecurityGuardActivity.class);
-                                        intentMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intentMain);
-                                        finish();
-                                    }else if(userType.equals("Police")){
-                                        Intent intentMain = new Intent(LoginActivity.this, PoliceActivity.class);
-                                        intentMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intentMain);
-                                        finish();
-                                    }else{
-                                        Toast.makeText(LoginActivity.this, "Failed Login. Please Try Again", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-                    }
-                });*/
-
-
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.button_login:
                 userLogin();
                 break;
-
-            case button_registration:
+            case R.id.button_registration:
                 finish();
                 startActivity(new Intent(this, SignUpActivity.class));
                 break;

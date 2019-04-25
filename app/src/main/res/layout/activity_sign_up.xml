@@ -7,9 +7,6 @@
     tools:context=".SignUpActivity"
     android:background ="@drawable/backgroundsignup">
 
-
-
-
     <EditText
         android:id="@+id/reg_display_name"
         android:layout_width="280dp"

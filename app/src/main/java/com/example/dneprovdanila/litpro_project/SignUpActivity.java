@@ -1,20 +1,16 @@
  package com.example.dneprovdanila.litpro_project;
 
 import android.content.Intent;
-import android.os.Binder;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.dneprovdanila.litpro_project.users_fragments.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -60,14 +56,14 @@ import java.util.ArrayList;
      }
 
 
-     @Override
+/*     @Override
      protected void onStart() {
          super.onStart();
          if (mAuth.getCurrentUser() != null) {
              finish();
              startActivity(new Intent(this, MainActivity.class));
          }
-     }
+     }*/
 
      @Override
      public void onClick(View v) {
@@ -139,13 +135,15 @@ import java.util.ArrayList;
 
 
 
-                          /*  ArrayList<String> people = new ArrayList<String>();
-                            people.add("Masha");
+                            //ArrayList<String> pupils = new ArrayList<String>();
+                            /*people.add("Masha");
                             people.add("Kate");
                             people.add("Glasha");*/
 
-                            User user = new User( display_name, email, password );
-                            //Staff staff = new Staff(display_name, email, password, people);
+                            User user = new User( display_name, email, password, 0);
+                            //Staff staff = new Staff(display_name, email, password, pupils, 0);
+
+                            ArrayList<FirebaseUser> users = new ArrayList<FirebaseUser>();
 
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid())
@@ -157,7 +155,6 @@ import java.util.ArrayList;
                                         Toast.makeText(getApplicationContext(), "Готово!", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                                         finish();
-
                                     }
                                 }
                             });

@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private static final int CHOOSE_IMAGE = 101;
     ImageView imageView;
     EditText editText;
-
+    //
     // ProgressBar progressBar;
     String profileImageUrl;
     Uri uriProfileImage;
@@ -179,6 +179,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    private void sendToStart() {
+        finish();
+        startActivity(new Intent(this, LogInActivity.class));
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -189,11 +194,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void sendToStart() {
-        finish();
-        startActivity(new Intent(this, LogInActivity.class));
-    }
-
     // ONE
     private void showImageChooser() {
         Intent intent = new Intent();
@@ -202,19 +202,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
     }
 
+
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.back:
-                finish();
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
-
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 sendToStart();
-                /*finish();
-                startActivity(new Intent(this, LogInActivity.class));*/
                 break;
         }
     }
