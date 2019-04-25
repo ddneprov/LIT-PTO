@@ -37,7 +37,7 @@
         android:layout_below="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pupils_list">
+        android:id="@+id/myrecyclerview">
     </android.support.v7.widget.RecyclerView>
 
 
@@ -49,25 +49,6 @@
         android:layout_marginTop="35dp"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
-
-    <TextView
-        android:id="@+id/pupil_name1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="96dp"
-        android:layout_marginBottom="70dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/pupil_name2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/pupil_name1"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="63dp"
-        android:text="TextView" />
 
     <TextView
         android:id="@+id/points"
