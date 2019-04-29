@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_MainActivity;
 import com.example.dneprovdanila.litpro_project.users_fragments.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,28 +57,25 @@ import java.util.ArrayList;
      }
 
 
-/*     @Override
+     @Override
      protected void onStart() {
          super.onStart();
-         if (mAuth.getCurrentUser() != null) {
+         /*if (mAuth.getCurrentUser() != null) {
              finish();
-             startActivity(new Intent(this, MainActivity.class));
-         }
-     }*/
+             startActivity(new Intent(this, START_activity.class));
+         }*/
+     }
 
      @Override
      public void onClick(View v) {
          switch (v.getId()) {
              case R.id.button_back:
-                 finish();// точно?
+                 finish();
                  startActivity(new Intent(this, LogInActivity.class));
                  break;
-             /*case R.id.button_signUp:
-                 String display_name = mDisplayName.getEditText().toString();
-                 String email = mDisplayName.getEditText().toString();
-                 String password = mDisplayName.getEditText().toString();
-                 registerUser(display_name, email, password);
-                 break;*/
+             case R.id.button_signUp:
+                 registerUser();
+                 break;
          }
      }
 
@@ -133,19 +131,12 @@ import java.util.ArrayList;
                         //progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
 
+                            String id = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+                            //User user = new User(email, display_name, password, 0, false, id, "");
+                            ArrayList<String> pupils = new ArrayList<String>();
+                            Staff staff = new Staff(display_name, email, password, pupils, 0, "", id);
 
-
-                            //ArrayList<String> pupils = new ArrayList<String>();
-                            /*people.add("Masha");
-                            people.add("Kate");
-                            people.add("Glasha");*/
-
-                            User user = new User( display_name, email, password, 0);
-                            //Staff staff = new Staff(display_name, email, password, pupils, 0);
-
-                            ArrayList<FirebaseUser> users = new ArrayList<FirebaseUser>();
-
-                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
+                           /* FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -157,9 +148,9 @@ import java.util.ArrayList;
                                         finish();
                                     }
                                 }
-                            });
+                            });*/
 
-                            /*FirebaseDatabase.getInstance().getReference("Staff").child(FirebaseAuth.getInstance()
+                            FirebaseDatabase.getInstance().getReference("Staff").child(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid())
                                     .setValue(staff).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -168,12 +159,12 @@ import java.util.ArrayList;
                                     {
                                         Toast.makeText(getApplicationContext(), "Готово!", Toast.LENGTH_SHORT).show();
 
-                                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                        startActivity(new Intent(SignUpActivity.this, STAFF_MainActivity.class));
                                         finish();
 
                                     }
                                 }
-                            });*/
+                            });
 
                         }
                         else

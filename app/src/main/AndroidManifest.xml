@@ -9,17 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LogInActivity">
+        <activity android:name=".START_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".users_fragments.MainActivity" />
-        <activity android:name=".staff_fragments.STAFF_MainActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".users_fragments.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".staff_fragments.STAFF_MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LogInActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

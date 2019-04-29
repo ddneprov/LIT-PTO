@@ -8,9 +8,36 @@ public class Staff {
     points - количество баллов проверяющего ( в зависимости от кол-ва проверенных работ )
     pupils - лист с учениками, которых взялся проверять проверяющий
      */
-    public  String name, email, password;
-    public Integer points;
+    private   String name;
+    private String email;
+    private String password;
+    private Integer points;                                     // количество баллов
+    private String status;                                      // статус проверяющего
+    private String id;                                          // id проверяющего
+    private ArrayList<String> pupils = new ArrayList<String>(); // список ,прикрепленных к проверяющему, студентов
 
+
+    public void Add_New_Pupil(String pupil_id)
+    {
+        if (pupil_id!=null)
+            getPupils().add(pupil_id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getName() {
         return name;
@@ -52,19 +79,17 @@ public class Staff {
         this.pupils = pupils;
     }
 
-    public ArrayList<String> pupils = new ArrayList<String>();
-
     public Staff() {
 
     }
 
-    public Staff(String name, String email, String password,  ArrayList<String> pupils, Integer points) {
+    public Staff(String name, String email, String password,  ArrayList<String> pupils, Integer points, String status, String id) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.pupils = pupils;
         this.points = points;
+        this.status = status;
+        this.id = id;
     }
-
-
 }

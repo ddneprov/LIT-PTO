@@ -4,18 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.dneprovdanila.litpro_project.R;
-import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_profile_fragment;
-import com.example.dneprovdanila.litpro_project.users_fragments.HomeFragment;
-import com.example.dneprovdanila.litpro_project.users_fragments.MessageFragment;
-import com.example.dneprovdanila.litpro_project.users_fragments.NontificationFragment;
-import com.example.dneprovdanila.litpro_project.users_fragments.ProfileFragment;
-import com.example.dneprovdanila.litpro_project.users_fragments.TaskFragment;
-
 
 
 public class STAFF_MainActivity extends AppCompatActivity{

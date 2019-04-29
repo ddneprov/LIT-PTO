@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_MainActivity;
 import com.example.dneprovdanila.litpro_project.users_fragments.MainActivity;
@@ -19,13 +20,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,11 +33,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     FirebaseAuth mAuth;
     DatabaseReference myRef;
     ProgressBar progressBar;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_auth);
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference();
@@ -46,56 +49,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         findViewById(R.id.button_registration).setOnClickListener(this);
         findViewById(R.id.button_login).setOnClickListener(this);
-    }
-
-
-
-    public static Integer COUNTER = 0;
-    public String answer;
-    public  String staff = "STAFF";
-    public  String user = "USER";
-    private void is_it_USER(final String email)
-    {
-        //myRef.child("Users").addValueEventListener(new ValueEventListener() {
-        myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
-                    String data_mail = dSnapshot.getValue(User.class).getEmail();
-                    if (data_mail.toString().equals(email.toString())) {
-                        answer = "USER";
-                        return;
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-
-    private void is_it_STAFF(final String email)
-    {
-        COUNTER += 1;
-        //myRef.child("Staff").addValueEventListener(new ValueEventListener() {
-        myRef.child("Staff").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
-                    String data_mail = dSnapshot.getValue(User.class).getEmail();
-                    if(data_mail.toString().equals(email.toString()))
-                    {
-                        answer = "STAFF";
-                        return;
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
 
     }
-
 
 
     @Override
@@ -103,26 +58,43 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         super.onStart();
         if (mAuth.getCurrentUser() != null)
         {
-            //Globals.status = "";
-            final String email = mAuth.getCurrentUser().getEmail();
-            is_it_STAFF(email);
-            is_it_USER(email);
 
-            if(user.equals(answer))
-            {
-                finish();
-                startActivity(new Intent(this, MainActivity.class));
-            }
+            String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
+            progressBar.setVisibility(View.GONE);
 
-            else if(staff.equals(answer))
-            {
-                finish();
-                startActivity(new Intent(this, STAFF_MainActivity.class));
-            }
+            myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener()  {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        finish();
+                        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        finish();
+                        Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     }
-
-
 
     private void userLogin() {
         final String email = editText_login_1.getText().toString().trim();
@@ -141,27 +113,53 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
 
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        Task<AuthResult> authResultTask = mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressBar.setVisibility(View.GONE);
-                    is_it_STAFF(email.toString());
+                    //is_it_STAFF(email.toString());
+                    //is_it_USER(email.toString());
                     //String line = answer;
-                    if ("STAFF".equals(answer))
-                    {
-                        finish();
-                        Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
-                        startActivity(intent);
-                    }
 
-                    //line = answer;
-                    if ("USER".equals(answer))
-                    {
-                        finish();
-                        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
+
+
+                        String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
+                        myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()) {
+                                    finish();
+                                    Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                                //return;
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
+                    myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists())
+                            {
+                                finish();
+                                Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         });

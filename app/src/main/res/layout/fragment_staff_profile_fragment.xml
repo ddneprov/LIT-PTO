@@ -1,17 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/girltwo" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/myrecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/status"
+            android:layout_marginBottom="50dp">
+        </android.support.v7.widget.RecyclerView>
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/girltwo" />
+
+
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="35dp"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
+
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="15dp"
+            android:fontFamily="@font/old_standard_tt"
+            android:text="/?"
+            android:textSize="35dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/staff_name"
+            android:fontFamily="@font/old_standard_tt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            android:text="Staff name"/>
+
+
+        <TextView
+            android:id="@+id/status"
+            android:fontFamily="@font/old_standard_tt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/staff_name"
+            android:layout_centerHorizontal="true"
+            android:textSize="15dp"
+            android:text="Status"/>
+    </RelativeLayout>
+
+
+
+
+
+
+
 
 
     <ImageView
@@ -32,35 +100,6 @@
         android:textSize="25sp" />
 
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/myrecyclerview">
-    </android.support.v7.widget.RecyclerView>
-
-
-    <ImageView
-        android:id="@+id/settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="35dp"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
-
-    <TextView
-        android:id="@+id/points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="15dp"
-        android:fontFamily="@font/lobster"
-        android:text="/?"
-        android:textSize="35dp"
-        android:textStyle="bold" />
 
 
 </RelativeLayout>
