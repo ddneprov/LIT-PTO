@@ -1,6 +1,7 @@
 package com.example.dneprovdanila.litpro_project.staff_fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.support.v4.app.Fragment;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dneprovdanila.litpro_project.SettingsActivity;
 import com.example.dneprovdanila.litpro_project.Staff;
@@ -44,7 +46,7 @@ public class STAFF_profile_fragment extends  Fragment {
     public ImageView settings;
     FirebaseUser currentUser;
 
-    static Integer pupil_current_namber = 0;
+    Integer pupil_current_namber = 0;
 
 
     public STAFF_profile_fragment() {
@@ -104,56 +106,62 @@ public class STAFF_profile_fragment extends  Fragment {
     }
 
 
-
+    Boolean flag = true;
+    Boolean disable_right_now = false;
     @Override
     public void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser() != null) {
 
+            pupil_current_namber = 0;
+
             FirebaseRecyclerAdapter<User, UserViewholder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<User, UserViewholder>
                     (User.class, R.layout.pupil_card, UserViewholder.class, myRef.child("Users")) {
-
 
                 @Override
                 protected void populateViewHolder(UserViewholder viewHolder, User model, int position) {
                     viewHolder.setName(model.getName()); // выводим имя
-                    //pupil_current_namber++;
-                    //viewHolder.setNumber(pupil_current_namber); // номер студента в списке
-
-
-                    Switch select_status = (Switch) viewHolder.mView.findViewById(R.id.select_status);
-
+                    viewHolder.setNumber(++position); // номер студента в списке
                     final String user_id = model.getId();
                     final String staff_id = currentUser.getUid();
+                    Switch select_status = (Switch) viewHolder.mView.findViewById(R.id.select_status);   /* изначально все включены */
 
-                    assert model.getTeacher_id() != null;
+                    /* если не пустой, но занят другим, то нельзя менять switch*/
+                    if(!"".equals(model.getTeacher_id()) && !model.getTeacher_id().equals(staff_id))
+                        select_status.setEnabled(false);
 
-                    if(!"".equals(model.getTeacher_id()))// если ученик уже выбран другим проверяющим то ставим отметку выбранно
+
+
+
+                    // если не прикреплен проверяющий то выключаем
+                    if("".equals(model.getTeacher_id()) && !disable_right_now)// если ученик уже выбран другим проверяющим то ставим отметку выбранно
                         select_status.toggle();
 
-                    /*if("".equals(model.getTeacher_id()) || model.getTeacher_id().equals(staff_id))// если не выбран, или выбран нами, то слушаем
-                    {*/
-                        select_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton compoundButton, boolean selected) {
-                                if(selected) // если проверяющий выбрал ученика
-                                {
-                                    /*убираем у студента*/
-                                    myRef.child("Users").child(user_id).child("selected").setValue(true);
-                                    myRef.child("Users").child(user_id).child("teacher_id").setValue(staff_id);
-                                }
-                                else // если отменил
-                                {
-                                    /*убираем у проверяющего*/
-                                    myRef.child("Users").child(user_id).child("selected").setValue(false);
-                                    myRef.child("Users").child(user_id).child("teacher_id").setValue("");
-                                }
+                    disable_right_now = false;
+                    select_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean does_selected) {
+                            if(does_selected) // если проверяющий выбрал ученика
+                            {
+                                // myRef.child("Users").child(user_id).child("selected").setValue(true);
+                                myRef.child("Users").child(user_id).child("teacher_id").setValue(staff_id);
+                                //flag = false;
+                                disable_right_now = true;
                             }
-                        });
-                    //}
+                            else// если отменил
+                            {
+                                /*убираем у проверяющего*/
+                                //myRef.child("Users").child(user_id).child("selected").setValue(false);
+                                myRef.child("Users").child(user_id).child("teacher_id").setValue("");
+                                //flag = false;
+                                disable_right_now = true;
+                            }
+                        }
+                    });
                 }
             };
             mBlogList.setAdapter(firebaseRecyclerAdapter);
+            //firebaseRecyclerAdapter.notifyDataSetChanged();
         }
     }
 
@@ -187,3 +195,13 @@ public class STAFF_profile_fragment extends  Fragment {
 
     }
 }
+
+
+
+  /* //если к ученику прикреплен этот проверяющий то замочек
+                    if(model.getTeacher_id().equals(staff_id)) /// ставим замочек если проверяющий выбрал себе ученика
+                    {
+                        Drawable d = getResources().getDrawable(android.R.drawable.ic_lock_lock);
+                        ImageView yours =  (ImageView)viewHolder.mView.findViewById(R.id.yours);
+                        yours.setImageDrawable(d);
+                    }*/

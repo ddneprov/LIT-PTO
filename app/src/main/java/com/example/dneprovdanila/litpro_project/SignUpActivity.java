@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_MainActivity;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
      private EditText mEmail;
      private EditText mPassword;
      private Button mSignUp;
-     private Button mBack;
+     private ImageView mBack;
      private FirebaseAuth mAuth;
      // ProgressBar progressBar;
 
@@ -45,15 +46,11 @@ import java.util.ArrayList;
          mEmail = (EditText) findViewById(R.id.reg_email);
          mPassword = (EditText) findViewById(R.id.reg_password);
          mSignUp = (Button) findViewById(R.id.button_signUp);
-         mBack = (Button) findViewById(R.id.button_back);
+         mBack = (ImageView) findViewById(R.id.button_back);
 
 
-         mSignUp.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 registerUser();
-             }
-         });
+         mBack.setOnClickListener(this);
+         mSignUp.setOnClickListener(this);
      }
 
 
@@ -71,7 +68,7 @@ import java.util.ArrayList;
          switch (v.getId()) {
              case R.id.button_back:
                  finish();
-                 startActivity(new Intent(this, LogInActivity.class));
+                 startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
                  break;
              case R.id.button_signUp:
                  registerUser();
@@ -176,7 +173,4 @@ import java.util.ArrayList;
                     }
                 });
     }
-
-
-
  }

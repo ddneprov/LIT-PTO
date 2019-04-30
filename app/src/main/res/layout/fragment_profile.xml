@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/landscape2" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
@@ -47,10 +55,13 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:fontFamily="@font/ruslan_display"
-            android:text="ПРОФИЛЬ"
+            android:text="КАБИНЕТ"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="25sp" />
     </RelativeLayout>
+
+
+
 
     <ImageView
         android:id="@+id/settings"
@@ -63,7 +74,7 @@
 
     <TextView
         android:id="@+id/pupil_name"
-        android:fontFamily="@font/old_standard_tt"
+        android:fontFamily="@font/noteworthy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
@@ -78,7 +89,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="40dp"
         android:layout_marginRight="15dp"
-        android:fontFamily="@font/lobster"
+        android:fontFamily="@font/ruslan_display"
+        android:textColor="#ffff"
         android:text="/?"
         android:textSize="35dp"
         android:textStyle="bold" />

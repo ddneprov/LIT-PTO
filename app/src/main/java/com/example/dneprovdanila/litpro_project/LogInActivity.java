@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     EditText editText_login_1, editText_password_1;
     FirebaseAuth mAuth;
     DatabaseReference myRef;
+    Button a;
     ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth firebaseAuth;
@@ -47,6 +50,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         editText_login_1 = (EditText) findViewById(R.id.editText_login_1);
         editText_password_1 = (EditText) findViewById(R.id.editText_password_1);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        a = (Button)findViewById(R.id.button_registration);
+
         findViewById(R.id.button_registration).setOnClickListener(this);
         findViewById(R.id.button_login).setOnClickListener(this);
 
@@ -56,44 +61,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStart() {
         super.onStart();
-        if (mAuth.getCurrentUser() != null)
-        {
-
-            String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
-            progressBar.setVisibility(View.GONE);
-
-            myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener()  {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        finish();
-                        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        finish();
-                        Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
-                        startActivity(intent);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
     }
 
     private void userLogin() {
@@ -118,11 +85,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     progressBar.setVisibility(View.GONE);
-                    //is_it_STAFF(email.toString());
-                    //is_it_USER(email.toString());
-                    //String line = answer;
-
-
 
                         String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
                         myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -142,9 +104,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                             }
                         });
 
-
-
-                    myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists())
@@ -163,6 +123,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing
     }
 
     @Override

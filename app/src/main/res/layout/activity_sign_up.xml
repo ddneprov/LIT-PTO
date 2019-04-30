@@ -10,57 +10,98 @@
     <EditText
         android:id="@+id/reg_display_name"
         android:layout_width="280dp"
+        android:layout_height="35dp"
         android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="@font/amatic_sc"
+        android:layout_marginTop="190dp"
+        android:background="@drawable/rectangle_login"
+        android:ems="30"
+        android:fontFamily="@font/noteworthy"
         android:hint="как вас зовут"
-        android:layout_marginTop="90dp"
         android:inputType="textPersonName"
+        android:paddingLeft="8dp"
+        android:selectAllOnFocus="true"
+        android:textAllCaps="false"
+        android:textStyle="italic"
         tools:layout_editor_absoluteX="73dp"
         tools:layout_editor_absoluteY="299dp" />
 
     <EditText
         android:id="@+id/reg_email"
         android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="почта"
-        android:layout_centerHorizontal="true"
+        android:paddingLeft="8dp"
+        android:layout_height="35dp"
         android:layout_below="@id/reg_display_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rectangle_login"
+        android:ems="10"
+        android:fontFamily="@font/noteworthy"
+        android:hint="почта"
         android:inputType="textEmailAddress"
+        android:textStyle="italic"
         tools:layout_editor_absoluteX="72dp"
         tools:layout_editor_absoluteY="368dp" />
 
     <EditText
         android:id="@+id/reg_password"
         android:layout_width="280dp"
-        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:layout_height="35dp"
         android:layout_below="@+id/reg_email"
-        android:ems="10"
-        android:hint="придумайте пароль"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rectangle_login"
+        android:ems="10"
+        android:fontFamily="@font/noteworthy"
+        android:hint="придумайте пароль"
         android:inputType="textPassword"
+        android:textStyle="italic"
         tools:layout_editor_absoluteX="82dp"
         tools:layout_editor_absoluteY="471dp" />
 
     <Button
         android:id="@+id/button_signUp"
-        android:layout_width="102dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:layout_height="69dp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="272dp"
+        android:layout_height="39dp"
         android:layout_below="@+id/reg_password"
-        android:text="sign in" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/reg_shape"
+        android:fontFamily="@font/noteworthy"
+        android:text="Зарегестрироваться"
+        android:textColor="#c9c9c9"
+        android:textSize="15dp" />
 
 
 
-    <Button
+    <ImageView
         android:id="@+id/button_back"
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:text="back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        app:srcCompat="@drawable/girlfour" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/button_signUp"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/reg_flower" />
+
 
 </RelativeLayout>

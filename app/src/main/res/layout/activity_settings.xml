@@ -6,34 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
-    <Button
-        android:id="@+id/buttonSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
-        android:text="Save" />
-
     <EditText
         android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/editText3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:fontFamily="@font/old_standard_tt"
-        android:inputType="textPersonName"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/imageView"
-        android:hint="как вас зовут" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/girlone" />
-
+        android:fontFamily="@font/noteworthy"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="3dp"
+        android:textStyle="italic" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -46,14 +30,6 @@
             android:layout_height="35dp"
             android:background="@drawable/up" />
 
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@android:drawable/star_on" />
 
         <TextView
             android:id="@+id/textView2"
@@ -69,17 +45,85 @@
 
 
     <Button
-        android:id="@+id/logout"
-        style="@android:style/Widget.DeviceDefault.Light.Button.Borderless.Small"
+        android:id="@+id/buttonSave"
+        android:background="@drawable/reg_shape"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/caveat"
-        android:text="Выйти"
-        android:layout_marginTop="18dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_above="@+id/logout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="Save" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
+        android:layout_below="@+id/relativeLayout"
         android:layout_alignParentRight="true"
-        android:textColor="@color/colorAccent"
-        />
+        android:layout_marginRight="10dp"
+        android:background="@drawable/girlone" />
+
+
+
+
+
+    <Button
+        android:id="@+id/logout"
+        android:background="@drawable/field_shape"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/noteworthy"
+        android:text="Выйти"
+        android:textColor="#ffff"
+        android:textSize="14dp" />
+
+
+
+
+
+
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="250dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="3dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:fontFamily="@font/noteworthy"
+        android:inputType="textEmailAddress"
+        android:textStyle="italic" />
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="250dp"
+        android:paddingLeft="3dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="@font/noteworthy"
+        android:inputType="textEmailAddress"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="250dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="3dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:fontFamily="@font/noteworthy"
+        android:inputType="textEmailAddress"
+        android:textStyle="italic" />
 
 
 </RelativeLayout>

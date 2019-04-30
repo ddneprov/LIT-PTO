@@ -48,22 +48,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         //progressBar = (ProgressBar) findViewById(R.id.progressbar);
         mAuth = FirebaseAuth.getInstance();
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showImageChooser();
-            }
-        });
+
 
         loadUserInformation();///
-
-        findViewById(R.id.buttonSave).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                saveUserInformation();
-            }
-        });
 
 
         //TODO:сделай рандом фотографий
@@ -71,8 +58,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
          Random rand = new Random();
         imageView.setImageResource(images[rand.nextInt(images.length)]);*/
 
-        findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.logout).setOnClickListener(this);
+        findViewById(R.id.buttonSave).setOnClickListener(this);
+        findViewById(R.id.imageView).setOnClickListener(this);
 
 
     }
@@ -179,21 +167,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void sendToStart() {
-        finish();
-        startActivity(new Intent(this, LogInActivity.class));
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (mAuth.getCurrentUser() == null) {
-            sendToStart();
-            /*finish();
-            startActivity(new Intent(this, LogInActivity.class));*/
-        }
-    }
-
     // ONE
     private void showImageChooser() {
         Intent intent = new Intent();
@@ -204,14 +177,36 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
 
 
+    private void sendToStart() {
+        FirebaseAuth.getInstance().signOut();
+        finish();
+        startActivity(new Intent(this, LogInActivity.class));
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser() == null) {
+            sendToStart();
+        }
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.logout:
-                FirebaseAuth.getInstance().signOut();
                 sendToStart();
+                finish();
                 break;
+            case R.id.buttonSave:
+                saveUserInformation();
+                break;
+
+            case R.id.imageView:
+                showImageChooser();
+                break;
+
         }
     }
 }

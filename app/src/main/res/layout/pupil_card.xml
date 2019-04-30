@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="30dp"
     android:layout_margin="7dp"
@@ -15,8 +16,8 @@
 
         <TextView
             android:id="@+id/pupil_number"
-            android:layout_marginLeft="15dp"
-            android:layout_width="10dp"
+            android:layout_width="30dp"
+            android:gravity="right"
             android:layout_height="wrap_content"
             android:fontFamily="@font/old_standard_tt"
             android:text="i"
@@ -43,13 +44,20 @@
             android:text="Name Surname"
             android:textSize="20dp" />
 
+
+        <ImageView
+            android:id="@+id/yours"
+            android:layout_toLeftOf="@+id/select_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
         <Switch
             android:id="@+id/select_status"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"/>
-
+            android:checked="true"/>
     </RelativeLayout>
 
 </RelativeLayout>
