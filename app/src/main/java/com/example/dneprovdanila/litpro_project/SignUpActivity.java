@@ -1,9 +1,17 @@
  package com.example.dneprovdanila.litpro_project;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +39,15 @@ import java.util.ArrayList;
      private Button mSignUp;
      private ImageView mBack;
      private FirebaseAuth mAuth;
-     // ProgressBar progressBar;
+     //ProgressBar progressBar;
+
+
+
+     //ImageView ImgUserPhoto;
+     ///static int PeqCode = 1;
+     ///static int REQUESCODE = 1;
+     ///Uri pickedImgUri;
+
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +64,12 @@ import java.util.ArrayList;
          mSignUp = (Button) findViewById(R.id.button_signUp);
          mBack = (ImageView) findViewById(R.id.button_back);
 
+         //ImgUserPhoto = (ImageView) findViewById(R.id.regUserPhoto);
+
 
          mBack.setOnClickListener(this);
          mSignUp.setOnClickListener(this);
+         //ImgUserPhoto.setOnClickListener(this);
      }
 
 
@@ -64,6 +83,12 @@ import java.util.ArrayList;
      }
 
      @Override
+     public void onBackPressed() {
+         // do nothing
+     }
+
+
+     @Override
      public void onClick(View v) {
          switch (v.getId()) {
              case R.id.button_back:
@@ -73,12 +98,60 @@ import java.util.ArrayList;
              case R.id.button_signUp:
                  registerUser();
                  break;
+            /* case R.id.regUserPhoto:
+                 if(Build.VERSION.SDK_INT >= 22)
+                 {
+                     checkAndRequestForPermission();
+                 }
+                 else
+                 {
+                     openGallery();
+                 }
+                 break;*/
          }
      }
 
+   /*  private void openGallery() {
+         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+         galleryIntent.setType("image/*");
+         startActivityForResult(galleryIntent, REQUESCODE);
+     }
+
+     private void checkAndRequestForPermission() {
+
+         if (ContextCompat.checkSelfPermission(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                 != PackageManager.PERMISSION_GRANTED) {
+             if (ActivityCompat.shouldShowRequestPermissionRationale(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                 Toast.makeText(SignUpActivity.this,"Пожалуйста, подтвердите запрос",Toast.LENGTH_SHORT).show();
+
+             }
+
+             else
+             {
+                 ActivityCompat.requestPermissions(SignUpActivity.this,
+                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                         PeqCode);
+             }
+         }
+         else
+             openGallery();
+     }
+
+     @Override
+     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+         super.onActivityResult(requestCode, resultCode, data);
+
+         if(requestCode == RESULT_OK && requestCode == REQUESCODE && data != null)
+         {
+             pickedImgUri = data.getData();
+             ImgUserPhoto.setImageURI(pickedImgUri);
+         }
+     }*/
 
 
- ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// //////////////////////
+
+     ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// ////////////////////// //////////////////////
 
 
 
@@ -130,9 +203,10 @@ import java.util.ArrayList;
 
                             String id = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
                             //User user = new User(email, display_name, password, 0, false, id, "");
+
                             ArrayList<String> pupils = new ArrayList<String>();
                             Staff staff = new Staff(display_name, email, password, pupils, 0, "", id);
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                            /* FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -156,12 +230,28 @@ import java.util.ArrayList;
                                     {
                                         Toast.makeText(getApplicationContext(), "Готово!", Toast.LENGTH_SHORT).show();
 
+                                        FirebaseAuth auth = FirebaseAuth.getInstance();
+                                        FirebaseUser user = auth.getCurrentUser();
+
+
                                         startActivity(new Intent(SignUpActivity.this, STAFF_MainActivity.class));
                                         finish();
 
+                                        user.sendEmailVerification()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(getApplicationContext(), "Письмо на почту отправлено!", Toast.LENGTH_SHORT).show();
+                                                            startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
+                                                            finish();
+                                                        }
+                                                    }
+                                                });
                                     }
                                 }
                             });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                         }
                         else

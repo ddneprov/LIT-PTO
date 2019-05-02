@@ -12,7 +12,7 @@
         android:layout_width="280dp"
         android:layout_height="35dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="130dp"
         android:background="@drawable/rectangle_login"
         android:ems="30"
         android:fontFamily="@font/noteworthy"
@@ -22,6 +22,7 @@
         android:selectAllOnFocus="true"
         android:textAllCaps="false"
         android:textStyle="italic"
+        android:textSize="15dp"
         tools:layout_editor_absoluteX="73dp"
         tools:layout_editor_absoluteY="299dp" />
 
@@ -35,6 +36,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/rectangle_login"
         android:ems="10"
+        android:textSize="15dp"
         android:fontFamily="@font/noteworthy"
         android:hint="почта"
         android:inputType="textEmailAddress"
@@ -53,6 +55,7 @@
         android:background="@drawable/rectangle_login"
         android:ems="10"
         android:fontFamily="@font/noteworthy"
+        android:textSize="15dp"
         android:hint="придумайте пароль"
         android:inputType="textPassword"
         android:textStyle="italic"
@@ -84,15 +87,6 @@
         android:layout_marginLeft="5dp"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        app:srcCompat="@drawable/girlfour" />
 
     <ImageView
         android:id="@+id/imageView7"

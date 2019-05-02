@@ -19,6 +19,7 @@ import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_MainActivi
 import com.example.dneprovdanila.litpro_project.users_fragments.MainActivity;
 import com.example.dneprovdanila.litpro_project.users_fragments.TaskFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +36,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     FirebaseAuth mAuth;
     DatabaseReference myRef;
     Button a;
+    FirebaseUser user;
     ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth firebaseAuth;
@@ -52,6 +54,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         a = (Button)findViewById(R.id.button_registration);
 
+        user = mAuth.getCurrentUser();
         findViewById(R.id.button_registration).setOnClickListener(this);
         findViewById(R.id.button_login).setOnClickListener(this);
 
@@ -79,51 +82,102 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
-        Task<AuthResult> authResultTask = mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    progressBar.setVisibility(View.GONE);
+
+
+            progressBar.setVisibility(View.VISIBLE);
+            Task<AuthResult> authResultTask = mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        progressBar.setVisibility(View.GONE);
 
                         String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
                         myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()) {
+
                                     finish();
                                     Intent intent = new Intent(LogInActivity.this, MainActivity.class);
                                     startActivity(intent);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                    /*FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
+                                            boolean isEmailVerified = user.isEmailVerified();
+                                            if(isEmailVerified)
+                                            {
+                                                finish();
+                                                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                            else
+                                            {
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "Подтвердите письмо на почте", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                 }
-                                //return;
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
                         });
 
                         myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists())
-                            {
-                                finish();
-                                Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
-                                startActivity(intent);
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists())
+                                {
+
+                                    finish();
+                                    Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                    startActivity(intent);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                   /* FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
+                                            boolean isEmailVerified = user.isEmailVerified();
+                                            if(isEmailVerified)
+                                            {
+                                                finish();
+                                                Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                            else
+                                            {
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "Подтвердите письмо на почте", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                progressBar.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(getApplicationContext(), "Неверная почта или пароль", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
+
+
 
     @Override
     public void onBackPressed() {
@@ -133,9 +187,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.button_login:
                 userLogin();
                 break;
+
             case R.id.button_registration:
                 finish();
                 startActivity(new Intent(this, SignUpActivity.class));

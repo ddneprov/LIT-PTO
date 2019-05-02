@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -32,7 +31,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private static final int CHOOSE_IMAGE = 101;
     ImageView imageView;
     EditText editText;
-    //
     // ProgressBar progressBar;
     String profileImageUrl;
     Uri uriProfileImage;
@@ -43,31 +41,25 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.profilePhoto);
         editText = (EditText) findViewById(R.id.editText);
         //progressBar = (ProgressBar) findViewById(R.id.progressbar);
         mAuth = FirebaseAuth.getInstance();
 
-
-
         loadUserInformation();///
-
-
-        //TODO:сделай рандом фотографий
-         /*  int[] images = {R.drawable.girlone,R.drawable.girltwo,R.drawable.girlthree,R.drawable.girlfour};
-         Random rand = new Random();
-        imageView.setImageResource(images[rand.nextInt(images.length)]);*/
 
         findViewById(R.id.logout).setOnClickListener(this);
         findViewById(R.id.buttonSave).setOnClickListener(this);
-        findViewById(R.id.imageView).setOnClickListener(this);
+        findViewById(R.id.profilePhoto).setOnClickListener(this);
 
 
     }
 
+
+
+
     private void loadUserInformation() {
         final FirebaseUser user = mAuth.getCurrentUser();
-
         if (user != null)
         {
             if (user.getPhotoUrl() != null)
@@ -179,8 +171,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     private void sendToStart() {
         FirebaseAuth.getInstance().signOut();
-        finish();
-        startActivity(new Intent(this, LogInActivity.class));
+        startActivity(new Intent(SettingsActivity.this, LogInActivity.class));
         finish();
     }
 
@@ -197,13 +188,12 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.logout:
                 sendToStart();
-                finish();
                 break;
             case R.id.buttonSave:
                 saveUserInformation();
                 break;
 
-            case R.id.imageView:
+            case R.id.profilePhoto:
                 showImageChooser();
                 break;
 

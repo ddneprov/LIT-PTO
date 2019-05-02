@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_MainActivity;
 import com.example.dneprovdanila.litpro_project.users_fragments.MainActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,11 +34,12 @@ public class START_activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (mAuth.getCurrentUser() != null) {
+
+        if (mAuth.getCurrentUser() != null /*&& mAuth.getCurrentUser().isEmailVerified()*/) {
+
             String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
 
-
-            myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener()  {
+            myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -69,7 +74,7 @@ public class START_activity extends AppCompatActivity {
         else
         {
             finish();
-            startActivity(new Intent(this, LogInActivity.class));
+            startActivity(new Intent(START_activity.this, LogInActivity.class));
         }
     }
 }

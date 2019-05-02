@@ -19,30 +19,32 @@
 
     <EditText
         android:id="@+id/editText_login_1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
         android:layout_width="280dp"
         android:layout_height="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="170dp"
         android:background="@drawable/rectangle_login"
         android:ems="10"
         android:fontFamily="@font/noteworthy"
         android:hint="Почта"
         android:inputType="textPersonName"
-        android:paddingLeft="10dp" />
+        android:paddingLeft="10dp"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/editText_password_1"
-        android:layout_centerHorizontal="true"
         android:layout_width="280dp"
-        android:layout_marginTop="10dp"
         android:layout_height="35dp"
+        android:layout_below="@+id/editText_login_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rectangle_password"
         android:ems="10"
         android:fontFamily="@font/noteworthy"
         android:hint="Пароль"
-        android:layout_below="@+id/editText_login_1"
         android:inputType="textPassword"
-        android:paddingLeft="10dp" />
+        android:paddingLeft="10dp"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/button_registration"
@@ -78,7 +80,7 @@
         android:layout_width="272dp"
         android:layout_height="39dp"
         android:text="Войти"
-        android:textColor="#ffff"
+        android:textColor="#c9c9c9"
         android:fontFamily="@font/noteworthy"
         android:background="@drawable/reg_shape"/>
 

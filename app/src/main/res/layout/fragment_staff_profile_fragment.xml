@@ -30,13 +30,16 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/landscape2" />
 
-        <ImageView
-            android:id="@+id/imageView"
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profilePhoto"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="130dp"
-            android:background="@drawable/girltwo" />
+            app:civ_border_width="1dp"
+            app:civ_border_color="#c9c9c9"
+            android:src = "@drawable/girlfour" />
 
 
         <ImageView
@@ -65,7 +68,7 @@
             android:id="@+id/staff_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
+            android:layout_below="@+id/profilePhoto"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/noteworthy"
             android:text="Staff name"

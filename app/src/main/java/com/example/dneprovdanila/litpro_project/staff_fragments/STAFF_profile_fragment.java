@@ -1,8 +1,11 @@
 package com.example.dneprovdanila.litpro_project.staff_fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +20,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.dneprovdanila.litpro_project.SettingsActivity;
 import com.example.dneprovdanila.litpro_project.Staff;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -41,6 +45,9 @@ public class STAFF_profile_fragment extends  Fragment {
     public TextView points;
     public TextView staff_name;
     public TextView status;
+
+    Uri uriProfileImage;
+    ImageView profilePhoto;
 
     private RecyclerView mBlogList;
     public ImageView settings;
@@ -80,7 +87,17 @@ public class STAFF_profile_fragment extends  Fragment {
         status = (TextView) v.findViewById(R.id.status);
         currentUser = mAuth.getCurrentUser();
 
+
+        profilePhoto = (ImageView)v.findViewById(R.id.profilePhoto) ;
         String RegisteredUserID = currentUser.getUid(); // взяли id
+
+        if (currentUser.getPhotoUrl() != null)
+        {
+            Glide.with(this)
+                    .load(currentUser.getPhotoUrl().toString())
+                    .into(profilePhoto);
+        }
+
 
 
 
@@ -96,6 +113,8 @@ public class STAFF_profile_fragment extends  Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +127,7 @@ public class STAFF_profile_fragment extends  Fragment {
 
     Boolean flag = true;
     Boolean disable_right_now = false;
+    Boolean enable_right_now = false;
     @Override
     public void onStart() {
         super.onStart();
@@ -124,37 +144,49 @@ public class STAFF_profile_fragment extends  Fragment {
                     viewHolder.setNumber(++position); // номер студента в списке
                     final String user_id = model.getId();
                     final String staff_id = currentUser.getUid();
-                    Switch select_status = (Switch) viewHolder.mView.findViewById(R.id.select_status);   /* изначально все включены */
-
-                    /* если не пустой, но занят другим, то нельзя менять switch*/
-                    if(!"".equals(model.getTeacher_id()) && !model.getTeacher_id().equals(staff_id))
-                        select_status.setEnabled(false);
+                    Switch select_status = (Switch) viewHolder.mView.findViewById(R.id.select_status);
 
 
+                    if(!"".equals(model.getTeacher_id()) && !model.getTeacher_id().equals(staff_id)) // если не пустой и не наш
+                    {
+                        select_status.toggle(); // блокируем
+                        select_status.setEnabled(true); //  выкл
+                    }
 
 
-                    // если не прикреплен проверяющий то выключаем
-                    if("".equals(model.getTeacher_id()) && !disable_right_now)// если ученик уже выбран другим проверяющим то ставим отметку выбранно
-                        select_status.toggle();
 
-                    disable_right_now = false;
+
+                    if("".equals(model.getTeacher_id())) // если сейчас выключили
+                    {
+                        select_status.setChecked(false);
+                    }
+
+
+                    if(!"".equals(model.getTeacher_id())) // если сейчас включили
+                    {
+                        select_status.setChecked(true); // вкл
+                    }
+
+
+
+
+
+
+
                     select_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean does_selected) {
+                            disable_right_now = false;
+                            enable_right_now = false;
                             if(does_selected) // если проверяющий выбрал ученика
                             {
-                                // myRef.child("Users").child(user_id).child("selected").setValue(true);
-                                myRef.child("Users").child(user_id).child("teacher_id").setValue(staff_id);
-                                //flag = false;
-                                disable_right_now = true;
+                                enable_right_now = true;
+                                myRef.child("Users").child(user_id).child("teacher_id").setValue(staff_id.toString());
                             }
-                            else// если отменил
+                            if(!does_selected)// если отменил
                             {
-                                /*убираем у проверяющего*/
-                                //myRef.child("Users").child(user_id).child("selected").setValue(false);
-                                myRef.child("Users").child(user_id).child("teacher_id").setValue("");
-                                //flag = false;
                                 disable_right_now = true;
+                                myRef.child("Users").child(user_id).child("teacher_id").setValue("".toString());
                             }
                         }
                     });
