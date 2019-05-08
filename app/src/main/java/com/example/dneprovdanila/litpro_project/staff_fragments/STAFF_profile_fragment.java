@@ -146,50 +146,60 @@ public class STAFF_profile_fragment extends  Fragment {
                     final String staff_id = currentUser.getUid();
                     Switch select_status = (Switch) viewHolder.mView.findViewById(R.id.select_status);
 
-
-                    if(!"".equals(model.getTeacher_id()) && !model.getTeacher_id().equals(staff_id)) // если не пустой и не наш
-                    {
-                        select_status.toggle(); // блокируем
-                        select_status.setEnabled(true); //  выкл
-                    }
-
-
-
-
-                    if("".equals(model.getTeacher_id())) // если сейчас выключили
-                    {
+                    if("".equals(model.getTeacher_id()))// если не присвоен проверяющий{
                         select_status.setChecked(false);
-                    }
 
-
-                    if(!"".equals(model.getTeacher_id())) // если сейчас включили
+                    if(!"".equals(model.getTeacher_id()))
                     {
                         select_status.setChecked(true); // вкл
+                        if(!staff_id.equals(model.getTeacher_id()))
+                            select_status.setEnabled(false); // нужно
                     }
 
+                    //select_status.setChecked(true); // вкл
+                    //select_status.setClickable(false);//select_status.toggle();
+                    //select_status.setChecked(true); // вкл
+                    //select_status.setChecked(!select_status.isChecked());
 
 
-
-
-
-
-                    select_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    select_status.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onCheckedChanged(CompoundButton compoundButton, boolean does_selected) {
-                            disable_right_now = false;
-                            enable_right_now = false;
-                            if(does_selected) // если проверяющий выбрал ученика
-                            {
-                                enable_right_now = true;
+                        public void onClick(View v) {
+                            if (((Switch) v).isChecked()) {
+
+                                myRef.child("Staff").child(staff_id).child("pupils").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists())
+                                        {
+                                            //GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+                                            //ArrayList<String> pupils =  dataSnapshot.getValue(t);
+                                            //Staff staff = dataSnapshot.getValue(Staff.class);
+                                            //staff.Add_New_Pupil(user_id);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    }
+                                });
+
+
+
+
+
+                                //myRef.child("Staff").child(staff_id).
                                 myRef.child("Users").child(user_id).child("teacher_id").setValue(staff_id.toString());
                             }
-                            if(!does_selected)// если отменил
+                            else
                             {
-                                disable_right_now = true;
                                 myRef.child("Users").child(user_id).child("teacher_id").setValue("".toString());
                             }
                         }
                     });
+
+
+
                 }
             };
             mBlogList.setAdapter(firebaseRecyclerAdapter);

@@ -14,21 +14,20 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:background="@drawable/up" />
+            android:src="@drawable/upup"/>
 
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/headline"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/ruslan_display"
             android:text="ПРОФИЛЬ"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
     </RelativeLayout>
 
 
@@ -50,20 +49,13 @@
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profilePhoto"
-        android:layout_width="108dp"
-        android:layout_height="108dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_below="@+id/relativeLayout"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/girlone"
         app:civ_border_width="1dp"
         app:civ_border_color="#c9c9c9"/>
-
-
-
-
-
-
 
 
 
@@ -73,7 +65,7 @@
         android:background="@drawable/field_shape"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/noteworthy"
@@ -83,61 +75,61 @@
 
 
 
-
-
     <EditText
         android:id="@+id/editText"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
         android:layout_below="@+id/editText3"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:fontFamily="@font/noteworthy"
         android:layout_centerHorizontal="true"
         android:inputType="textEmailAddress"
-        android:paddingLeft="3dp"
-        android:textStyle="italic" />
+        android:paddingLeft="3dp" />
 
 
     <EditText
         android:id="@+id/editText1"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
         android:paddingLeft="3dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="190dp"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:fontFamily="@font/noteworthy"
-        android:inputType="textEmailAddress"
-        android:textStyle="italic" />
+        android:inputType="textEmailAddress" />
+
+
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
         android:paddingLeft="3dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="10dp"
         android:layout_below="@+id/editText1"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/noteworthy"
-        android:inputType="textEmailAddress"
-        android:textStyle="italic" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/editText3"
-        android:layout_width="250dp"
-        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
         android:paddingLeft="3dp"
-        android:layout_height="35dp"
         android:layout_below="@+id/editText2"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/noteworthy"
-        android:inputType="textEmailAddress"
-        android:textStyle="italic" />
+        android:inputType="textEmailAddress" />
 
 
 </RelativeLayout>

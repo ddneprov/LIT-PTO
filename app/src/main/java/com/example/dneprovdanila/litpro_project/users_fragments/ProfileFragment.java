@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.dneprovdanila.litpro_project.R;
 import com.example.dneprovdanila.litpro_project.SettingsActivity;
 import com.example.dneprovdanila.litpro_project.User;
@@ -27,7 +28,7 @@ public class ProfileFragment extends Fragment {
 
 
     private static final int CHOOSE_IMAGE = 101;
-    ImageView imageView;
+    ImageView profilePhoto;
     FirebaseAuth mAuth;
     TextView pupil_name;
     DatabaseReference jLoginDatabase;
@@ -67,6 +68,14 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+        profilePhoto = (ImageView) view.findViewById(R.id.profilePhoto);
+        if (currentUser.getPhotoUrl() != null)
+        {
+            Glide.with(this)
+                    .load(currentUser.getPhotoUrl().toString())
+                    .into(profilePhoto);
+        }
 
 
 

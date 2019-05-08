@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.TimeUnit;
+
 public class START_activity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
@@ -70,6 +72,10 @@ public class START_activity extends AppCompatActivity {
 
                 }
             });
+
+            finish();
+            startActivity(new Intent(START_activity.this, LogInActivity.class));
+
         }
         else
         {
