@@ -60,7 +60,6 @@
             android:layout_marginTop="40dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/headline"
-            android:text="100"
             android:textAlignment="textEnd"
             android:textColor="#ffffffff"
             android:textSize="35dp" />

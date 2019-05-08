@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_MainActivity;
@@ -39,12 +40,15 @@ public class START_activity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null /*&& mAuth.getCurrentUser().isEmailVerified()*/) {
 
+
             String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
 
-            myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            FirebaseDatabase.getInstance().getReference().child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
+
                         finish();
                         Intent intent = new Intent(START_activity.this, MainActivity.class);
                         startActivity(intent);
@@ -53,14 +57,16 @@ public class START_activity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    throw databaseError.toException(); // Don't ignore errors
                 }
             });
 
-            myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            FirebaseDatabase.getInstance().getReference().child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
+
                         finish();
                         Intent intent = new Intent(START_activity.this, STAFF_MainActivity.class);
                         startActivity(intent);
@@ -69,7 +75,7 @@ public class START_activity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    throw databaseError.toException(); // Don't ignore errors
                 }
             });
         }

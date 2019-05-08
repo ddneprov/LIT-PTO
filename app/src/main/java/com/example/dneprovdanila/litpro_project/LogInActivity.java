@@ -4,6 +4,7 @@ package com.example.dneprovdanila.litpro_project;
 
 import android.content.Intent;
 import android.os.ParcelUuid;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,22 +85,141 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-            progressBar.setVisibility(View.VISIBLE);
+        Toast.makeText(getApplicationContext(), "рас", Toast.LENGTH_SHORT).show();
+
+
+        progressBar.setVisibility(View.VISIBLE);
             Task<AuthResult> authResultTask = mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         progressBar.setVisibility(View.GONE);
+                        final String RegisteredUserID = FirebaseAuth.getInstance().getCurrentUser().getUid(); // взяли id
 
-                        String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
-                        myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+//addValueEventListener
+                        ///
+                        Toast.makeText(getApplicationContext(), "пробуем зайти в юзера", Toast.LENGTH_SHORT).show();
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()) {
+                                if (dataSnapshot.exists()) {
+
+                                    Toast.makeText(getApplicationContext(), "пробуем юзера и он существует", Toast.LENGTH_SHORT).show();
 
                                     finish();
                                     Intent intent = new Intent(LogInActivity.this, MainActivity.class);
                                     startActivity(intent);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "dataSnapshot юзера не существует", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                throw databaseError.toException(); // Don't ignore errors
+
+                            }
+                        });
+                        ///
+
+
+
+
+                        /*DatabaseReference a = FirebaseDatabase.getInstance().getReference().child("Users");
+                        DatabaseReference b = FirebaseDatabase.getInstance().getReference().child("Staff");
+
+
+                        ValueEventListener listner = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+
+                                    Toast.makeText(getApplicationContext(), "dataSnapshot существует !!!", Toast.LENGTH_SHORT).show();
+
+
+                                    if (dataSnapshot.getRef() == FirebaseDatabase.getInstance().getReference().child("Users").child(RegisteredUserID))
+                                    {
+                                        finish();
+                                        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                    else if (dataSnapshot.getRef() == FirebaseDatabase.getInstance().getReference().child("Staff").child(RegisteredUserID))
+                                    {
+                                        finish();
+                                        Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(), "dataSnapshot  не существует", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        };
+                        a.addValueEventListener(listner);
+                        b.addValueEventListener(listner);*/
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                   /* FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
+                                            boolean isEmailVerified = user.isEmailVerified();
+                                            if(isEmailVerified)
+                                            {
+                                                finish();
+                                                Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                            else
+                                            {
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "Подтвердите письмо на почте", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///
+                        Toast.makeText(getApplicationContext(), "ELSE", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "пробуем зайти в стаф", Toast.LENGTH_SHORT).show();
+
+                        FirebaseDatabase.getInstance().getReference().child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+
+                                    Toast.makeText(getApplicationContext(), "пробуем стаф и он существует", Toast.LENGTH_SHORT).show();
+
+
+                                    finish();
+                                    Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                    startActivity(intent);
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(), "dataSnapshot стафа не существует", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                throw databaseError.toException(); // Don't ignore errors
+                            }
+                        });
+
+                    }
+
+///
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                     /*FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -121,53 +241,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                         }
                                     });*/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                progressBar.setVisibility(View.INVISIBLE);
-                            }
-                        });
 
-                        myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists())
-                                {
-
-                                    finish();
-                                    Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
-                                    startActivity(intent);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                   /* FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
-                                            boolean isEmailVerified = user.isEmailVerified();
-                                            if(isEmailVerified)
-                                            {
-                                                finish();
-                                                Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
-                                                startActivity(intent);
-                                            }
-                                            else
-                                            {
-                                                progressBar.setVisibility(View.INVISIBLE);
-                                                Toast.makeText(getApplicationContext(), "Подтвердите письмо на почте", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });*/
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                progressBar.setVisibility(View.INVISIBLE);
-                            }
-                        });
-                    }
                     else
                     {
                         progressBar.setVisibility(View.INVISIBLE);
@@ -199,3 +274,54 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 }
+
+
+
+
+
+
+ /*Toast.makeText(getApplicationContext(), "ПЕРЕХОД", Toast.LENGTH_SHORT).show();
+
+                        try {
+                            Toast.makeText(getApplicationContext(), "пробуем зайти в стаф", Toast.LENGTH_SHORT).show();
+                            FirebaseDatabase.getInstance().getReference().child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+
+                                        Toast.makeText(getApplicationContext(), "пробуем стаф и он существует", Toast.LENGTH_SHORT).show();
+
+
+                                        finish();
+                                        Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                        startActivity(intent);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                   *//* FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
+                                            boolean isEmailVerified = user.isEmailVerified();
+                                            if(isEmailVerified)
+                                            {
+                                                finish();
+                                                Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                            else
+                                            {
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "Подтвердите письмо на почте", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });*//*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    Toast.makeText(getApplicationContext(), "Попробуйте еще раз", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
+                            });*/

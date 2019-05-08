@@ -234,8 +234,8 @@ import java.util.ArrayList;
                                         FirebaseUser user = auth.getCurrentUser();
 
 
-                                        startActivity(new Intent(SignUpActivity.this, STAFF_MainActivity.class));
-                                        finish();
+                                        /*startActivity(new Intent(SignUpActivity.this, STAFF_MainActivity.class));
+                                        finish();*/
 
                                         user.sendEmailVerification()
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {

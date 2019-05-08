@@ -6,17 +6,15 @@ public class User {
     private String password;
     private String id;
     private Integer points;
-    /*private Boolean selected;*/
     private String teacher_id;
 
     public User() { }
 
-    public User(String email, String name, String password, Integer points, /*Boolean selected,*/ String id, String teacher_id) {
+    public User(String email, String name, String password, Integer points, String id, String teacher_id) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.points = points;
-        /*this.selected = selected;*/
         this.id = id;
         this.teacher_id = teacher_id;
     }
@@ -37,14 +35,6 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
-
-  /*  public Boolean getSelected() {
-        return selected;
-    }
-
-    public void setSelected(Boolean selected) {
-        this.selected = selected;
-    }*/
 
     public String getName() {
         return name;
