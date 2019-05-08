@@ -33,6 +33,7 @@ public class ProfileFragment extends Fragment {
     TextView pupil_name;
     DatabaseReference jLoginDatabase;
     TextView points;
+    DatabaseReference myRef;
 
 
 
@@ -50,6 +51,8 @@ public class ProfileFragment extends Fragment {
         pupil_name = (TextView) view.findViewById(R.id.pupil_name);
         settings = (ImageView) view.findViewById(R.id.settings);
         points = (TextView) view.findViewById(R.id.points);
+        myRef = FirebaseDatabase.getInstance().getReference();
+        myRef.keepSynced(true);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String RegisteredUserID = currentUser.getUid(); // взяли id
@@ -59,7 +62,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                //points.setText(user.getPoints());
+                points.setText(user.getPoints().toString());
                 pupil_name.setText(user.getName());
             }
 
@@ -68,6 +71,7 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
 
         profilePhoto = (ImageView) view.findViewById(R.id.profilePhoto);
         if (currentUser.getPhotoUrl() != null)

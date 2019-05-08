@@ -10,7 +10,7 @@ public class Staff {
      */
     private   String name;
     private String email;
-    private String password;
+    //private String password;
     private Integer points;                                     // количество баллов
     private String status;                                      // статус проверяющего
     private String id;                                          // id проверяющего
@@ -55,14 +55,14 @@ public class Staff {
         this.email = email;
     }
 
-    public String getPassword() {
+   /* public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
-
+*/
     public Integer getPoints() {
         return points;
     }
@@ -83,10 +83,10 @@ public class Staff {
 
     }
 
-    public Staff(String name, String email, String password,  ArrayList<String> pupils, Integer points, String status, String id) {
+    public Staff(String name, String email,/* String password, */ ArrayList<String> pupils, Integer points, String status, String id) {
         this.name = name;
         this.email = email;
-        this.password = password;
+        //this.password = password;
         this.pupils = pupils;
         this.points = points;
         this.status = status;

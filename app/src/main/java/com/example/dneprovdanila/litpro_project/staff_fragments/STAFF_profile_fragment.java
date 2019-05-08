@@ -32,7 +32,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class STAFF_profile_fragment extends  Fragment {
@@ -125,9 +128,6 @@ public class STAFF_profile_fragment extends  Fragment {
     }
 
 
-    Boolean flag = true;
-    Boolean disable_right_now = false;
-    Boolean enable_right_now = false;
     @Override
     public void onStart() {
         super.onStart();
@@ -167,13 +167,18 @@ public class STAFF_profile_fragment extends  Fragment {
                         public void onClick(View v) {
                             if (((Switch) v).isChecked()) {
 
+
+
+                                /// добавляем ученика в список учителю
                                 myRef.child("Staff").child(staff_id).child("pupils").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         if (dataSnapshot.exists())
                                         {
-                                            //GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
-                                            //ArrayList<String> pupils =  dataSnapshot.getValue(t);
+                                            GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+                                            ArrayList<String> pupils =  dataSnapshot.getValue(t);
+                                            pupils.add(user_id);
+                                            myRef.child("Staff").child(staff_id).child("pupils").setValue(pupils);
                                             //Staff staff = dataSnapshot.getValue(Staff.class);
                                             //staff.Add_New_Pupil(user_id);
                                         }
@@ -185,21 +190,38 @@ public class STAFF_profile_fragment extends  Fragment {
                                 });
 
 
-
-
-
-                                //myRef.child("Staff").child(staff_id).
+                                /// записываем ученику учителя
                                 myRef.child("Users").child(user_id).child("teacher_id").setValue(staff_id.toString());
                             }
                             else
                             {
+                                /// удаляем из списка
+                                myRef.child("Staff").child(staff_id).child("pupils").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists())
+                                        {
+                                            GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+                                            ArrayList<String> pupils =  dataSnapshot.getValue(t);
+
+                                            if (pupils.contains(user_id.toString()))
+                                                pupils.remove(user_id.toString());
+
+                                            myRef.child("Staff").child(staff_id).child("pupils").setValue(pupils);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    }
+                                });
+
+
+                                /// убираем учителя у ученика
                                 myRef.child("Users").child(user_id).child("teacher_id").setValue("".toString());
                             }
                         }
                     });
-
-
-
                 }
             };
             mBlogList.setAdapter(firebaseRecyclerAdapter);
@@ -237,13 +259,3 @@ public class STAFF_profile_fragment extends  Fragment {
 
     }
 }
-
-
-
-  /* //если к ученику прикреплен этот проверяющий то замочек
-                    if(model.getTeacher_id().equals(staff_id)) /// ставим замочек если проверяющий выбрал себе ученика
-                    {
-                        Drawable d = getResources().getDrawable(android.R.drawable.ic_lock_lock);
-                        ImageView yours =  (ImageView)viewHolder.mView.findViewById(R.id.yours);
-                        yours.setImageDrawable(d);
-                    }*/

@@ -72,10 +72,6 @@ public class START_activity extends AppCompatActivity {
 
                 }
             });
-
-            finish();
-            startActivity(new Intent(START_activity.this, LogInActivity.class));
-
         }
         else
         {

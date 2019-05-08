@@ -202,10 +202,10 @@ import java.util.ArrayList;
                         if (task.isSuccessful()) {
 
                             String id = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
-                            //User user = new User(email, display_name, password, 0, false, id, "");
+                            //User user = new User(email, display_name, password, 0, id, "");
 
                             ArrayList<String> pupils = new ArrayList<String>();
-                            Staff staff = new Staff(display_name, email, password, pupils, 0, "", id);
+                            Staff staff = new Staff(display_name, email, pupils, 0, "", id);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                            /* FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid())
