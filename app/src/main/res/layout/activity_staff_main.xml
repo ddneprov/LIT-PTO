@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_staff_main"
     tools:context=".staff_fragments.STAFF_MainActivity">
 
 
@@ -19,11 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemTextColor="@color/colorAccent"
-        app:itemIconTint="@color/colorAccent"
+        app:itemIconTint="#FF663F56"
+        app:itemTextColor="#FF663F56"
         app:menu="@menu/staff_bottom_navigation" />
-
-
 
 
 </RelativeLayout>

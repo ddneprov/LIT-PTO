@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
 import com.example.dneprovdanila.litpro_project.R;
+import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_TaskFragment;
 import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_profile_fragment;
 import com.example.dneprovdanila.litpro_project.users_fragments.HomeFragment;
 import com.example.dneprovdanila.litpro_project.users_fragments.MessageFragment;
@@ -22,9 +24,12 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListner);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new STAFF_TaskFragment()).commit();
+
     }
 
 
@@ -61,8 +66,12 @@ public class MainActivity extends AppCompatActivity{
 
                     }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
-                    return true; }
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    //        selectedFragment).commit();
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+
+                    return true;
+                }
             };
 }

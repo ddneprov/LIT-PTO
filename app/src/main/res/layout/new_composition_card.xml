@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    android:elevation="90dp">
+
+    <TextView
+        android:id="@+id/name_surname"
+        android:layout_toRightOf="@+id/profilePhoto"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/old_standard_tt"
+        android:text="Name Surname"
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:id="@+id/com_title"
+        android:layout_width="280dp"
+        android:layout_height="33dp"
+        android:layout_below="@id/name_surname"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/profilePhoto"
+        android:fontFamily="@font/old_standard_tt"
+        android:text="Message Message Message Message Message Message Message Message Message"
+        android:textSize="14dp" />
+
+
+
+    <ImageView
+        android:id="@+id/profilePhoto"
+        android:background="@drawable/girlfive"
+        android:layout_toLeftOf="@+id/select_status"
+        android:layout_width="65dp"
+        android:layout_height="65dp" />
+
+
+
+    <ImageView
+        android:id="@+id/already_read"
+        android:background="@drawable/alarm"
+        android:layout_below="@+id/time"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp" />
+
+</RelativeLayout>

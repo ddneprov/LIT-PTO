@@ -78,6 +78,13 @@ public class START_activity extends AppCompatActivity {
                     throw databaseError.toException(); // Don't ignore errors
                 }
             });
+
+            //TODO: придумай как избавиться
+           /* finish();
+            startActivity(new Intent(START_activity.this, LogInActivity.class));
+*/
+
+
         }
         else
         {

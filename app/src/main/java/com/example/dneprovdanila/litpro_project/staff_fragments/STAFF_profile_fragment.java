@@ -107,9 +107,12 @@ public class STAFF_profile_fragment extends  Fragment {
         myRef.child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                points.setText(dataSnapshot.child("points").getValue().toString());
-                staff_name.setText(dataSnapshot.child("name").getValue().toString());
-                status.setText(dataSnapshot.child("status").getValue().toString());
+                if (dataSnapshot.exists())
+                {
+                    points.setText(dataSnapshot.child("points").getValue().toString());
+                    staff_name.setText(dataSnapshot.child("name").getValue().toString());
+                    status.setText(dataSnapshot.child("status").getValue().toString());
+                }
             }
 
             @Override
@@ -167,8 +170,6 @@ public class STAFF_profile_fragment extends  Fragment {
                         public void onClick(View v) {
                             if (((Switch) v).isChecked()) {
 
-
-
                                 /// добавляем ученика в список учителю
                                 myRef.child("Staff").child(staff_id).child("pupils").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -182,9 +183,8 @@ public class STAFF_profile_fragment extends  Fragment {
                                             //Staff staff = dataSnapshot.getValue(Staff.class);
                                             //staff.Add_New_Pupil(user_id);
                                         }
-                                        else
+                                        else //TODO: исправь pupils
                                         {
-
                                             /// если у преподователя нет списка то создаем новый
                                             ArrayList<String> pupils = new ArrayList<>();
                                             pupils.add(user_id);
@@ -203,7 +203,7 @@ public class STAFF_profile_fragment extends  Fragment {
                                 /// записываем ученику учителя
                                 myRef.child("Users").child(user_id).child("teacher_id").setValue(staff_id.toString());
                             }
-                            else
+                            else /**   если выключили switch   */
                             {
                                 /// удаляем из списка
                                 myRef.child("Staff").child(staff_id).child("pupils").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -235,7 +235,6 @@ public class STAFF_profile_fragment extends  Fragment {
                 }
             };
             mBlogList.setAdapter(firebaseRecyclerAdapter);
-            //firebaseRecyclerAdapter.notifyDataSetChanged();
         }
     }
 

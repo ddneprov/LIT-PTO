@@ -44,12 +44,12 @@
 
         <ImageView
             android:id="@+id/settings"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginLeft="10dp"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="40dp"
-            app:srcCompat="@drawable/cog" />
+            app:srcCompat="@drawable/cog2" />
 
 
         <TextView
@@ -71,7 +71,6 @@
             android:layout_below="@+id/profilePhoto"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/noteworthy"
-            android:text="Staff name"
             android:textSize="25dp" />
 
 
@@ -82,8 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/staff_name"
             android:layout_centerHorizontal="true"
-            android:textSize="15dp"
-            android:text="Status"/>
+            android:textSize="15dp" />
 
     </RelativeLayout>
 

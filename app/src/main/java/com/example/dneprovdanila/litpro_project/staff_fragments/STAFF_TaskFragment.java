@@ -13,7 +13,6 @@ import com.example.dneprovdanila.litpro_project.R;
 public class STAFF_TaskFragment extends Fragment {
 
 
-
     public STAFF_TaskFragment() {
         // Required empty public constructor
     }
@@ -22,6 +21,7 @@ public class STAFF_TaskFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_staff_task,container, false);
+        View v =  inflater.inflate(R.layout.fragment_staff_task,container, false);
+        return v;
     }
 }

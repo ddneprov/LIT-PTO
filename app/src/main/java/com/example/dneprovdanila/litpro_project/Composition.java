@@ -15,7 +15,16 @@ public class Composition {
     private String composition;
     private  Boolean checked;
     private Integer words_count;
+    private String author_name;
 
+
+    public String getAuthor_name() {
+        return author_name;
+    }
+
+    public void setAuthor_name(String author_name) {
+        this.author_name = author_name;
+    }
 
     public String getComposition() {
         return composition;
@@ -57,14 +66,16 @@ public class Composition {
         this.author_id = author_id;
     }
 
+
+
     public Composition(){}
 
-    public  Composition(String author_id, String composition_title, String composition, Boolean checked, Integer words_count)
-    {
+    public  Composition(String author_id,  String author_name, String composition_title, String composition, Boolean checked, Integer words_count) {
         this.author_id = author_id;
         this.composition_title = composition_title;
         this.composition = composition;
         this.checked = checked;
         this.words_count = words_count;
+        this.author_name = author_name;
     }
 }
