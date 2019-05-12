@@ -9,6 +9,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/colorDarkPink</item>
         <item name="android:navigationBarColor">@color/colorDarkPink</item>
+
+
     </style>
+
 
 </resources>

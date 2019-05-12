@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_MainActivity;
+import com.example.dneprovdanila.litpro_project.staff_fragments.test;
+import com.example.dneprovdanila.litpro_project.staff_fragments.test2;
 import com.example.dneprovdanila.litpro_project.users_fragments.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +39,6 @@ import java.util.ArrayList;
      private EditText mEmail;
      private EditText mPassword;
      private Button mSignUp;
-     private ImageView mBack;
      private FirebaseAuth mAuth;
      //ProgressBar progressBar;
 
@@ -54,6 +55,18 @@ import java.util.ArrayList;
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_sign_up);
 
+
+         ///overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+
+         //overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+
+         //overridePendingTransition(R.anim.fab_slide_in_from_right, R.anim.trans_left_out);
+
+         //overridePendingTransition(R.anim.fab_slide_in_from_left, R.anim.trans_left_out);
+
+         //overridePendingTransition(R.anim.fab_slide_in_from_left, R.anim.fab_slide_out_to_left);
+
+
          // FireBase Auth
          mAuth = FirebaseAuth.getInstance();
 
@@ -62,92 +75,45 @@ import java.util.ArrayList;
          mEmail = (EditText) findViewById(R.id.reg_email);
          mPassword = (EditText) findViewById(R.id.reg_password);
          mSignUp = (Button) findViewById(R.id.button_signUp);
-         mBack = (ImageView) findViewById(R.id.button_back);
-
-         //ImgUserPhoto = (ImageView) findViewById(R.id.regUserPhoto);
 
 
-         mBack.setOnClickListener(this);
+
          mSignUp.setOnClickListener(this);
          //ImgUserPhoto.setOnClickListener(this);
      }
 
 
-     @Override
+    /* @Override
      protected void onStart() {
          super.onStart();
-         /*if (mAuth.getCurrentUser() != null) {
+         if (mAuth.getCurrentUser() != null) {
              finish();
              startActivity(new Intent(this, START_activity.class));
-         }*/
+         }
      }
-
+*/
      @Override
      public void onBackPressed() {
-         // do nothing
+         super.onBackPressed();
+         //overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+         overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+
+
+         Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
+         startActivity(intent);
+         //finish();
      }
 
 
      @Override
      public void onClick(View v) {
          switch (v.getId()) {
-             case R.id.button_back:
-                 finish();
-                 startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
-                 break;
              case R.id.button_signUp:
                  registerUser();
                  break;
-            /* case R.id.regUserPhoto:
-                 if(Build.VERSION.SDK_INT >= 22)
-                 {
-                     checkAndRequestForPermission();
-                 }
-                 else
-                 {
-                     openGallery();
-                 }
-                 break;*/
          }
      }
 
-   /*  private void openGallery() {
-         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-         galleryIntent.setType("image/*");
-         startActivityForResult(galleryIntent, REQUESCODE);
-     }
-
-     private void checkAndRequestForPermission() {
-
-         if (ContextCompat.checkSelfPermission(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                 != PackageManager.PERMISSION_GRANTED) {
-             if (ActivityCompat.shouldShowRequestPermissionRationale(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-                 Toast.makeText(SignUpActivity.this,"Пожалуйста, подтвердите запрос",Toast.LENGTH_SHORT).show();
-
-             }
-
-             else
-             {
-                 ActivityCompat.requestPermissions(SignUpActivity.this,
-                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                         PeqCode);
-             }
-         }
-         else
-             openGallery();
-     }
-
-     @Override
-     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-         super.onActivityResult(requestCode, resultCode, data);
-
-         if(requestCode == RESULT_OK && requestCode == REQUESCODE && data != null)
-         {
-             pickedImgUri = data.getData();
-             ImgUserPhoto.setImageURI(pickedImgUri);
-         }
-     }*/
 
 
 

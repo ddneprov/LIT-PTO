@@ -47,7 +47,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_auth);
+        //overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+
+        ///overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+
+
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference();
         editText_login_1 = (EditText) findViewById(R.id.editText_login_1);
@@ -269,7 +275,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.button_registration:
                 finish();
-                startActivity(new Intent(this, SignUpActivity.class));
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
+                Intent intent = new Intent(this, SignUpActivity.class);
+                startActivity(intent);
                 break;
         }
     }

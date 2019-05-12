@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
-        android:layout_height="45dp">
+        android:layout_height="40dp">
 
         <ImageView
             android:id="@+id/imageView6"
@@ -29,35 +29,62 @@
     </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/words_count"
+
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_below="@+id/relativeLayout"
+        android:id="@+id/cap_field">
 
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:fontFamily="@font/headline"
-        android:text="0"
-        android:textColor="#c7c7c7"
-        android:textSize="24dp"
-        android:textAlignment="textEnd" />
+        <TextView
+            android:id="@+id/words_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/headline"
+            android:text="0"
+            android:textColor="#c7c7c7"
+            android:textSize="24dp"
+            android:textAlignment="textEnd" />
+
+
+        <EditText
+            android:id="@+id/composition_title"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/old_standard_tt"
+            android:layout_marginTop="10dp"
+            android:hint="Заголовок"
+            android:textSize="22dp"
+            android:textAlignment="center" />
+
+
+
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="45dp"
+            android:layout_height="42dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/letter_final"/>
 
 
 
 
 
-    <EditText
-        android:id="@+id/composition_title"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:background="@android:color/transparent"
-        android:fontFamily="@font/old_standard_tt"
-        android:hint="Заголовок"
-        android:textSize="22dp"
-        android:textAlignment="center" />
+    </RelativeLayout>
+
+
+
+
+
+
 
 
     <EditText
@@ -68,20 +95,9 @@
         android:fontFamily="@font/old_standard_tt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/composition_title"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/cap_field"
         android:hint="Ещё один шаг к 100!" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="45dp"
-        android:layout_height="42dp"
-
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
-
-        android:background="@drawable/letter_final"/>
 
 
 </RelativeLayout>

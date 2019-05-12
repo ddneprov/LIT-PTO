@@ -5,9 +5,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 
+import com.example.dneprovdanila.litpro_project.Bottom_Sheet_Dialog;
 import com.example.dneprovdanila.litpro_project.R;
 import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_TaskFragment;
 import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_profile_fragment;
@@ -17,7 +19,9 @@ import com.example.dneprovdanila.litpro_project.users_fragments.NontificationFra
 import com.example.dneprovdanila.litpro_project.users_fragments.ProfileFragment;
 import com.example.dneprovdanila.litpro_project.users_fragments.TaskFragment;
 
-public class MainActivity extends AppCompatActivity{
+import static android.support.constraint.Constraints.TAG;
+
+public class MainActivity extends AppCompatActivity implements Bottom_Sheet_Dialog.BottomSheetListner {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,4 +78,10 @@ public class MainActivity extends AppCompatActivity{
                     return true;
                 }
             };
+
+    @Override
+    public void onButtonClicked(Boolean agreement) {
+        Log.e(TAG, "zero 0");
+        TaskFragment.flag = agreement;
+    }
 }

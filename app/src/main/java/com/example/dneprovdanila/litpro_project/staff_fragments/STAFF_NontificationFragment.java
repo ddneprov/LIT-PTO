@@ -1,5 +1,6 @@
 package com.example.dneprovdanila.litpro_project.staff_fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,12 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.dneprovdanila.litpro_project.Composition;
 import com.example.dneprovdanila.litpro_project.R;
-import com.example.dneprovdanila.litpro_project.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -108,9 +107,27 @@ public class STAFF_NontificationFragment extends Fragment {
                                     if(pupils.contains(user_id.toString()))
                                     {
                                         Log.e(TAG, "CHOOSED 3");
-                                        mine_and_nonchecked = true;
                                         viewHolder.setTitle(model.getComposition_title());
                                         viewHolder.setName(model.getAuthor_name());
+
+                                        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intent = new Intent(getActivity(), test.class);
+
+
+                                                intent.putExtra("title", model.getComposition_title().toString());
+                                                intent.putExtra("author", model.getAuthor_name().toString());
+                                                intent.putExtra("composition", model.getComposition().toString());
+                                                //intent.putExtra("words", model.getWords_count().toString());
+
+                                                startActivity(intent);
+
+
+                                            }
+                                        });
+
+
                                     }
                                 }
                             }
@@ -119,11 +136,6 @@ public class STAFF_NontificationFragment extends Fragment {
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                             }
                         });
-
-
-                        Log.e(TAG, "fuck");
-
-
                     }
                 }
             };
@@ -139,6 +151,14 @@ public class STAFF_NontificationFragment extends Fragment {
         public UserViewholder(View itemView) {
             super(itemView);
             mView = itemView;
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                }
+            });
         }
 
         public void setName(String name){
@@ -149,6 +169,13 @@ public class STAFF_NontificationFragment extends Fragment {
         public void setTitle(String title) {
             TextView pupil_number = (TextView)mView.findViewById(R.id.com_title);
             pupil_number.setText(String.valueOf(title));
+        }
+
+        public void SetPhoto(String url)
+        {
+            /*Glide.with(this)
+                    .load(currentUser.getPhotoUrl().toString())
+                    .into(profilePhoto);*/
         }
     }
 }

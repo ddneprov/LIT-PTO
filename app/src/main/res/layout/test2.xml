@@ -1,0 +1,73 @@
+<RelativeLayout
+    android:id="@+id/main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:layout_gravity="end|center_vertical"
+    tools:context=".staff_fragments.test">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:id="@+id/cap_field">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/mark"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/headline"
+            android:text="ОЦЕНКА"
+            android:textAlignment="viewStart"
+            android:textColor="#c7c7c7"
+            android:textSize="24dp" />
+
+
+        <EditText
+            android:id="@+id/mark"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/headline"
+            android:inputType="number"
+            android:maxLength="1"
+            android:text="0"
+            android:textAlignment="textStart"
+            android:textColor="#c7c7c7"
+            android:textSize="24dp" />
+
+
+        <ImageButton
+            android:id="@+id/send_to_pupil"
+            android:layout_width="45dp"
+            android:layout_height="42dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/letter_final"/>
+
+    </RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cap_field"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="4dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/old_standard_tt"
+        android:hint="Подробный ответ" />
+</RelativeLayout>
