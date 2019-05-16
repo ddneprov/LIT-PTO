@@ -1,4 +1,4 @@
-package com.example.dneprovdanila.litpro_project;
+package com.example.dneprovdanila.litpro_project.users_fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.dneprovdanila.litpro_project.LogInActivity;
+import com.example.dneprovdanila.litpro_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,6 +23,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -30,11 +38,22 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     private static final int CHOOSE_IMAGE = 101;
     ImageView imageView;
-    EditText editText;
+    //EditText editText;
     // ProgressBar progressBar;
     String profileImageUrl;
     Uri uriProfileImage;
     FirebaseAuth mAuth;
+
+
+    DatabaseReference myRef;
+    FirebaseUser currentUser;
+
+
+    TextView S_pupil_name;
+    TextView S_pupil_email;
+    TextView S_pupil_teacher;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_settings);
 
         imageView = (ImageView) findViewById(R.id.profilePhoto);
-        editText = (EditText) findViewById(R.id.editText);
+        //editText = (EditText) findViewById(R.id.editText);
         //progressBar = (ProgressBar) findViewById(R.id.progressbar);
         mAuth = FirebaseAuth.getInstance();
 
@@ -51,6 +70,37 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.logout).setOnClickListener(this);
         findViewById(R.id.buttonSave).setOnClickListener(this);
         findViewById(R.id.profilePhoto).setOnClickListener(this);
+
+
+
+        S_pupil_name = (TextView)findViewById(R.id.S_pupil_name);
+        S_pupil_email = (TextView)findViewById(R.id.S_pupil_email);
+        S_pupil_teacher = (TextView)findViewById(R.id.S_pupil_teacher);
+
+
+        mAuth = FirebaseAuth.getInstance();
+        myRef = FirebaseDatabase.getInstance().getReference();
+        currentUser = mAuth.getCurrentUser();
+
+
+        String RegisteredUserID = currentUser.getUid(); // взяли id
+
+        myRef.child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                {
+                    S_pupil_name.setText(dataSnapshot.child("name").getValue().toString());
+                    S_pupil_email.setText(dataSnapshot.child("email").getValue().toString());
+                    S_pupil_teacher.setText(dataSnapshot.child("teacher_id").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
 
 
     }
@@ -70,26 +120,26 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             }
             if(user.getDisplayName() != null)
             {
-                editText.setText(user.getDisplayName());
+                //editText.setText(user.getDisplayName());
             }
         }
     }
 
     private void saveUserInformation() {
-        String displayName = editText.getText().toString();
+        //String displayName = editText.getText().toString();
 
-        if (displayName.isEmpty()) {
+        /*if (displayName.isEmpty()) {
             editText.setError("Введите имя");
             editText.requestFocus();
             return;
         }
-
+*/
         FirebaseUser user = mAuth.getCurrentUser();
 
 
         if (user != null && profileImageUrl != null) {
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(displayName)
+                    /*.setDisplayName(displayName)*/
                     .setPhotoUri(Uri.parse(profileImageUrl))
                     .build();
 

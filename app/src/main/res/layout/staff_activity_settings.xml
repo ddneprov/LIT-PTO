@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".users_fragments.SettingsActivity">
+    tools:context=".staff_fragments.STAFF_SettingsActivity">
 
 
 
@@ -77,51 +77,34 @@
 
 
     <TextView
-        android:id="@+id/S_pupil_name"
+        android:id="@+id/S_staff_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
 
+        android:textSize="20dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="190dp"
         android:ems="10"
-        android:textSize="20dp"
         android:fontFamily="@font/noteworthy"
         android:paddingLeft="3dp"
         android:textAlignment="center" />
 
 
     <TextView
-        android:id="@+id/S_pupil_email"
+        android:id="@+id/S_staff_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
 
-        android:layout_below="@+id/S_pupil_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:ems="10"
         android:textSize="20dp"
-        android:fontFamily="@font/noteworthy"
-        android:paddingLeft="3dp"
-        android:textAlignment="center" />
-
-
-    <TextView
-        android:id="@+id/S_pupil_teacher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-
-        android:layout_below="@+id/S_pupil_email"
+        android:layout_below="@+id/S_staff_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:textSize="12dp"
         android:fontFamily="@font/noteworthy"
         android:paddingLeft="3dp"
         android:textAlignment="center" />
-
 
 
 </RelativeLayout>

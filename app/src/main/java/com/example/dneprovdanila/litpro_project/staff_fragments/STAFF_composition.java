@@ -40,17 +40,14 @@ public class STAFF_composition extends AppCompatActivity implements  View.OnClic
         setContentView(R.layout.test);
 
         overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-
-
-
         lSwipeDetector = new GestureDetectorCompat(this, new MyGestureListener());
         main_layout = (RelativeLayout) findViewById(R.id.main_layout);
+
+
 
         TextView composition = (TextView)findViewById(R.id.composition);
         TextView author = (TextView)findViewById(R.id.author);
         TextView title = (TextView)findViewById(R.id.title);
-
-
 
         composition_text = getIntent().getExtras().getString("composition");
         author_text = getIntent().getExtras().getString("author");
@@ -60,6 +57,9 @@ public class STAFF_composition extends AppCompatActivity implements  View.OnClic
         author.setText(author_text);
         composition.setText(composition_text);
         title.setText(title_text);
+
+
+
 
 
         main_layout.setOnTouchListener(new View.OnTouchListener() {

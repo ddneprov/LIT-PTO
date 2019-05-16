@@ -3,6 +3,7 @@
     package="com.example.dneprovdanila.litpro_project">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 
 
@@ -30,19 +31,29 @@
             android:name=".staff_fragments.STAFF_MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".users_fragments.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".staff_fragments.STAFF_SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LogInActivity"
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".users_fragments.USER_answer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".users_fragments.USER_composition"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".staff_fragments.STAFF_composition"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".staff_fragments.STAFF_answer"
             android:screenOrientation="portrait" />
-
 
         <meta-data
             android:name="preloaded_fonts"

@@ -29,4 +29,14 @@
     </RelativeLayout>
 
 
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/user_composition_RW"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
+
 </RelativeLayout>

@@ -142,6 +142,8 @@ public class STAFF_answer extends AppCompatActivity implements  View.OnClickList
                 intent.putExtra("title", composition_text);
                 intent.putExtra("author", author_text);
                 intent.putExtra("composition", title_text);
+                intent.putExtra("composition_id", title_text);
+
                 startActivity(intent);
             }
             return false;

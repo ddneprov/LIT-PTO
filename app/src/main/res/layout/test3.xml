@@ -1,0 +1,61 @@
+<RelativeLayout
+    android:id="@+id/main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="end|center_vertical"
+    android:padding="5dp"
+    tools:context=".users_fragments.USER_answer">
+
+
+    <RelativeLayout
+        android:id="@+id/title_field"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/mark"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/headline"
+        android:text="ОЦЕНКА"
+        android:textAlignment="viewStart"
+        android:textColor="#c7c7c7"
+        android:textSize="24dp" />
+
+
+    <TextView
+        android:id="@+id/mark"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/headline"
+        android:inputType="number"
+        android:maxLength="1"
+        android:text="0"
+        android:textAlignment="textStart"
+        android:textColor="#c7c7c7"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_field"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:text="composition"
+        android:textAlignment="textStart" />
+</RelativeLayout>

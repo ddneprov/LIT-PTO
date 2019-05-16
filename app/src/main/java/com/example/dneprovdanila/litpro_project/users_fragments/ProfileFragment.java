@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.dneprovdanila.litpro_project.R;
-import com.example.dneprovdanila.litpro_project.SettingsActivity;
 import com.example.dneprovdanila.litpro_project.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,7 +61,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                //points.setText(user.getPoints().toString());
+                points.setText(user.getPoints().toString());
                 pupil_name.setText(user.getName());
             }
 

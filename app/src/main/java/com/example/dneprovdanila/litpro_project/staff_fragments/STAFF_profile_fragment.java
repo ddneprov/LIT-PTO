@@ -1,11 +1,8 @@
 package com.example.dneprovdanila.litpro_project.staff_fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,16 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.support.v4.app.Fragment;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.dneprovdanila.litpro_project.SettingsActivity;
-import com.example.dneprovdanila.litpro_project.Staff;
+import com.example.dneprovdanila.litpro_project.users_fragments.SettingsActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.example.dneprovdanila.litpro_project.R;
 import com.example.dneprovdanila.litpro_project.User;
@@ -124,7 +118,7 @@ public class STAFF_profile_fragment extends  Fragment {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                startActivity(new Intent(getActivity(), STAFF_SettingsActivity.class));
             }
         });
         return v;

@@ -8,14 +8,14 @@
     android:orientation="vertical"
     android:elevation="90dp">
 
-<TextView
+    <TextView
         android:id="@+id/post_title"
-        android:layout_toRightOf="@+id/profilePhoto"
         android:layout_width="match_parent"
-        android:layout_marginLeft="3dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@+id/profilePhoto"
         android:fontFamily="@font/old_standard_tt"
-        android:text="Name Surname"
+        android:text="Нюта Байдавлетова"
         android:textSize="20dp" />
 
 
@@ -28,7 +28,7 @@
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@+id/profilePhoto"
         android:fontFamily="@font/old_standard_tt"
-        android:text="Message Message Message Message Message Message Message Message Message"
+        android:text="У меня есть вопрос по работе"
         android:textSize="14dp" />
 
 

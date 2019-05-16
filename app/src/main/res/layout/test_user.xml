@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="end|center_vertical"
     android:padding="5dp"
-    tools:context=".staff_fragments.STAFF_composition">
+    tools:context=".users_fragments.USER_composition">
 
 
     <RelativeLayout

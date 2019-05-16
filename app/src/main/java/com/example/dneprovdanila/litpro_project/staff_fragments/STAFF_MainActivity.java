@@ -35,9 +35,9 @@ public class STAFF_MainActivity extends AppCompatActivity{
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
                     switch (item.getItemId()){
-                       /* case R.id.staff_navigation_task:
+                        case R.id.staff_navigation_task:
                             selectedFragment = new STAFF_TaskFragment();
-                            break;*/
+                            break;
 
                         case R.id.staff_navigation_message:
                             selectedFragment = new STAFF_MessageFragment();
