@@ -32,13 +32,6 @@ public class Bottom_Sheet_Dialog extends BottomSheetDialogFragment {
             }
         });
 
-      /*  send_disagree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListner.onButtonClicked(false);
-                dismiss();
-            }
-        });*/
 
 
         return  v;

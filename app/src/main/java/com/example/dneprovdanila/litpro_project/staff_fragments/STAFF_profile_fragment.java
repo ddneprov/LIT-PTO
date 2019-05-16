@@ -189,7 +189,7 @@ public class STAFF_profile_fragment extends  Fragment {
                                             ArrayList<String> pupils = new ArrayList<>();
                                             pupils.add(user_id);
 
-                                            myRef.child("Staff").child(staff_id).setValue("pupils");
+                                            //myRef.child("Staff").child(staff_id).setValue("pupils");
                                             myRef.child("Staff").child(staff_id).child("pupils").setValue(pupils);
                                         }
                                     }

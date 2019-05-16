@@ -28,15 +28,5 @@
             android:textSize="30sp" />
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="215dp"
-        android:layout_marginTop="135dp"
-        app:srcCompat="@drawable/alarm" />
-
 
 </RelativeLayout>

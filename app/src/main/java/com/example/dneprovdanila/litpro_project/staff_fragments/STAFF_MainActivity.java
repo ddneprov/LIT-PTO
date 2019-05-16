@@ -14,27 +14,11 @@ import com.example.dneprovdanila.litpro_project.users_fragments.HomeFragment;
 
 public class STAFF_MainActivity extends AppCompatActivity{
 
-    /*final Fragment fragment1 = new STAFF_TaskFragment();
-    final Fragment fragment2 = new STAFF_MessageFragment();
-    final Fragment fragment3 = new STAFF_NontificationFragment();
-    final Fragment fragment4 = new STAFF_profile_fragment();
-
-    final FragmentManager fm = getSupportFragmentManager();
-    Fragment active = fragment1;
-*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_main);
-
-
-/*        fm.beginTransaction().add(R.id.staff_fragment_container, fragment4, "4").hide(fragment4).commit();
-        fm.beginTransaction().add(R.id.staff_fragment_container, fragment3, "3").hide(fragment3).commit();
-        fm.beginTransaction().add(R.id.staff_fragment_container, fragment2, "2").hide(fragment2).commit();
-        fm.beginTransaction().add(R.id.staff_fragment_container,fragment1, "1").commit();*/
-
 
 
         BottomNavigationView bottomNav = findViewById(R.id.staff_bottom_navigation);
@@ -51,9 +35,9 @@ public class STAFF_MainActivity extends AppCompatActivity{
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
                     switch (item.getItemId()){
-                        case R.id.staff_navigation_task:
+                       /* case R.id.staff_navigation_task:
                             selectedFragment = new STAFF_TaskFragment();
-                            break;
+                            break;*/
 
                         case R.id.staff_navigation_message:
                             selectedFragment = new STAFF_MessageFragment();

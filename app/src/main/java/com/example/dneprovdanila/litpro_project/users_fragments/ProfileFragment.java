@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                points.setText(user.getPoints().toString());
+                //points.setText(user.getPoints().toString());
                 pupil_name.setText(user.getName());
             }
 

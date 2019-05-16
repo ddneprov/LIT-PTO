@@ -18,6 +18,12 @@ public class Composition {
     private String author_name;
 
 
+
+    private String feedback;
+    private Integer mark;
+
+
+
     public String getAuthor_name() {
         return author_name;
     }
@@ -67,15 +73,33 @@ public class Composition {
     }
 
 
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
+    }
+
 
     public Composition(){}
 
-    public  Composition(String author_id,  String author_name, String composition_title, String composition, Boolean checked, Integer words_count) {
+    public  Composition(String author_id,  String author_name, String composition_title, String composition, Boolean checked, String feedback, Integer mark, Integer words_count) {
         this.author_id = author_id;
         this.composition_title = composition_title;
         this.composition = composition;
         this.checked = checked;
+        this.feedback = feedback;
         this.words_count = words_count;
+        this.mark = mark;
         this.author_name = author_name;
     }
 }

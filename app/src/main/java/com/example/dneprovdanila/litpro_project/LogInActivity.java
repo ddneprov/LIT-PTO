@@ -64,7 +64,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         user = mAuth.getCurrentUser();
         findViewById(R.id.button_registration).setOnClickListener(this);
         findViewById(R.id.button_login).setOnClickListener(this);
-
     }
 
 
@@ -104,13 +103,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
 //addValueEventListener
                         ///
-                        Toast.makeText(getApplicationContext(), "пробуем зайти в юзера", Toast.LENGTH_SHORT).show();
                         FirebaseDatabase.getInstance().getReference().child("Users").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
 
-                                    Toast.makeText(getApplicationContext(), "пробуем юзера и он существует", Toast.LENGTH_SHORT).show();
 
                                     finish();
                                     Intent intent = new Intent(LogInActivity.this, MainActivity.class);
@@ -194,21 +191,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///
-                        Toast.makeText(getApplicationContext(), "ELSE", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(), "пробуем зайти в стаф", Toast.LENGTH_SHORT).show();
+
 
                         FirebaseDatabase.getInstance().getReference().child("Staff").child(RegisteredUserID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
-
-                                    Toast.makeText(getApplicationContext(), "пробуем стаф и он существует", Toast.LENGTH_SHORT).show();
-
-
                                     finish();
                                     Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
                                     startActivity(intent);
-
                                 }
                                 else
                                 {

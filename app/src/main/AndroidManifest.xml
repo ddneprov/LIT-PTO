@@ -37,10 +37,10 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".staff_fragments.test"
+            android:name=".staff_fragments.STAFF_composition"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".staff_fragments.test2"
+            android:name=".staff_fragments.STAFF_answer"
             android:screenOrientation="portrait" />
 
 

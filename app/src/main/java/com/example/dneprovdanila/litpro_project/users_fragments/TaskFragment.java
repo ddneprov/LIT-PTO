@@ -134,22 +134,20 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
                     final int words = Integer.parseInt(value);
                     final String author_id = FirebaseAuth.getInstance().getCurrentUser().getUid();// взяли id
 
-
-                    Log.e(TAG, "one");
                     myRef.child("Users").child(author_id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists())
                             {
 
-                                Log.e(TAG, "three");
 
                                 User user = dataSnapshot.getValue(User.class);
                                 String name = user.getName().toString();
                                 Integer points = user.getPoints();
                                 myRef.child("Users").child(author_id).child("points").setValue(++points);
 
-                                Composition new_composition = new Composition(author_id.toString(), name, composition_title.getText().toString().trim(), composition.getText().toString().trim(), false, words);
+
+                                Composition new_composition = new Composition(author_id.toString(), name, composition_title.getText().toString().trim(), composition.getText().toString().trim(), false,"", 0, words);
                                 FirebaseDatabase.getInstance().getReference().child("Compositions").child("Day1").push().setValue(new_composition);
 
                             }
@@ -158,7 +156,6 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             Log.e(TAG, "four");
-
                         }
                     });
                 }
@@ -191,41 +188,4 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
         Log.e(TAG, "zero");
         flag = agreement;
     }
-
-
-   /* @Override
-    public void onButtonClicked(Boolean user_agreement) {
-        if (user_agreement)
-        {
-            String value= words_count.getText().toString();
-            final int words = Integer.parseInt(value);
-            final String author_id = FirebaseAuth.getInstance().getCurrentUser().getUid();// взяли id
-
-
-            myRef.child("Users").child(author_id).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists())
-                    {
-
-
-
-
-                        User user = dataSnapshot.getValue(User.class);
-                        String name = user.getName().toString();
-                        Integer points = user.getPoints();
-
-                        myRef.child("Users").child(author_id).child("points").setValue(++points);
-                        Composition new_composition = new Composition(author_id.toString(), name, composition_title.getText().toString().trim(), composition.getText().toString().trim(), false, words);
-                        FirebaseDatabase.getInstance().getReference().child("Compositions").child("Day1").push().setValue(new_composition);
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        }
-    }*/
 }

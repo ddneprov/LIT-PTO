@@ -45,6 +45,8 @@
         android:layout_width="161dp"
         android:layout_height="42dp"
         android:layout_below="@+id/bottom_yes"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="1dp"
         app:srcCompat="@drawable/decorative_leaf_right" />
 
 </RelativeLayout>

@@ -15,7 +15,7 @@ import com.example.dneprovdanila.litpro_project.LogInActivity;
 import com.example.dneprovdanila.litpro_project.R;
 
 
-public class test extends AppCompatActivity implements  View.OnClickListener{
+public class STAFF_composition extends AppCompatActivity implements  View.OnClickListener{
 
     private GestureDetectorCompat lSwipeDetector;
 
@@ -28,6 +28,7 @@ public class test extends AppCompatActivity implements  View.OnClickListener{
     String composition_text;
     String author_text;
     String title_text;
+    String composition_id;
 
     private static final int SWIPE_MIN_DISTANCE = 130;
     private static final int SWIPE_MAX_DISTANCE = 300;
@@ -51,9 +52,10 @@ public class test extends AppCompatActivity implements  View.OnClickListener{
 
 
 
-        /*String*/ composition_text = getIntent().getExtras().getString("composition");
-        /*String*/ author_text = getIntent().getExtras().getString("author");
-        /*String*/ title_text = getIntent().getExtras().getString("title");
+        composition_text = getIntent().getExtras().getString("composition");
+        author_text = getIntent().getExtras().getString("author");
+        title_text = getIntent().getExtras().getString("title");
+        composition_id = getIntent().getExtras().getString("composition_id");
 
         author.setText(author_text);
         composition.setText(composition_text);
@@ -79,7 +81,7 @@ public class test extends AppCompatActivity implements  View.OnClickListener{
     @Override
     public void onBackPressed() {
 
-        Intent intent = new Intent(test.this, STAFF_MainActivity.class);
+        Intent intent = new Intent(STAFF_composition.this, STAFF_MainActivity.class);
         startActivity(intent);
     }
 
@@ -101,12 +103,12 @@ public class test extends AppCompatActivity implements  View.OnClickListener{
                 overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
 
 
-                Intent intent = new Intent(test.this, test2.class);
+                Intent intent = new Intent(STAFF_composition.this, STAFF_answer.class);
 
                 intent.putExtra("title", title_text);
                 intent.putExtra("author", author_text);
                 intent.putExtra("composition", composition_text);
-
+                intent.putExtra("composition_id", composition_id);
 
                 startActivity(intent);
             }

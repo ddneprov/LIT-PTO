@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dneprovdanila.litpro_project.Composition;
 import com.example.dneprovdanila.litpro_project.R;
@@ -64,21 +65,20 @@ public class STAFF_NontificationFragment extends Fragment {
 
 
 
-    Boolean mine_and_nonchecked = false;
-
     @Override
     public void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser() != null) {
 
+
             FirebaseRecyclerAdapter<Composition, STAFF_NontificationFragment.UserViewholder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Composition, STAFF_NontificationFragment.UserViewholder>
-                    (Composition.class, R.layout.new_composition_card, STAFF_NontificationFragment.UserViewholder.class, myRef.child("Compositions").child("Day1")) {
-
-
+                    (Composition.class, R.layout.new_composition_card, STAFF_NontificationFragment.UserViewholder.class, FirebaseDatabase.getInstance().getReference().child("Compositions").child("Day1")) {
                 @Override
                 protected void populateViewHolder(final STAFF_NontificationFragment.UserViewholder viewHolder, final Composition model, int position) {
-//                    myRef.child("Staff").child("pupils")
 
+                    final String listPostKey = getRef(position).getKey().toString();
+
+                    Log.e(TAG, "CHEKED?");
 
                     if(!model.getChecked())
                     {
@@ -87,12 +87,8 @@ public class STAFF_NontificationFragment extends Fragment {
 
                         Log.e(TAG, "!CHEKED");
 
-
-/*
-                        viewHolder.setTitle(model.getComposition_title());
+                      /*  viewHolder.setTitle(model.getComposition_title());
                         viewHolder.setName(model.getAuthor_name());*/
-
-
 
                         FirebaseDatabase.getInstance().getReference().child("Staff").child(staff_id).child("pupils").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -104,6 +100,7 @@ public class STAFF_NontificationFragment extends Fragment {
                                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
                                     ArrayList<String> pupils =  dataSnapshot.getValue(t);
 
+
                                     if(pupils.contains(user_id.toString()))
                                     {
                                         Log.e(TAG, "CHOOSED 3");
@@ -113,29 +110,27 @@ public class STAFF_NontificationFragment extends Fragment {
                                         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                Intent intent = new Intent(getActivity(), test.class);
-
+                                                Intent intent = new Intent(getActivity(), STAFF_composition.class);
 
                                                 intent.putExtra("title", model.getComposition_title().toString());
                                                 intent.putExtra("author", model.getAuthor_name().toString());
                                                 intent.putExtra("composition", model.getComposition().toString());
-                                                //intent.putExtra("words", model.getWords_count().toString());
+                                                intent.putExtra("composition_id", listPostKey.toString());
 
                                                 startActivity(intent);
-
-
                                             }
                                         });
-
-
                                     }
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                             }
                         });
+                    }
+                    else
+                    {
+                        Log.e(TAG, "already checked");
                     }
                 }
             };
@@ -168,7 +163,9 @@ public class STAFF_NontificationFragment extends Fragment {
 
         public void setTitle(String title) {
             TextView pupil_number = (TextView)mView.findViewById(R.id.com_title);
-            pupil_number.setText(String.valueOf(title));
+            //pupil_number.setText(String.valueOf(title));
+            pupil_number.setText(title);
+
         }
 
         public void SetPhoto(String url)

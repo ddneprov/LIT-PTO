@@ -10,7 +10,6 @@ public class Staff {
      */
     private   String name;
     private String email;
-    //private String password;
     private Integer points;                                     // количество баллов
     private String status;                                      // статус проверяющего
     private String id;                                          // id проверяющего
