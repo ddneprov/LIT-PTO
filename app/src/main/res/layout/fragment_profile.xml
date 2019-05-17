@@ -25,6 +25,15 @@
         app:civ_border_color="#c9c9c9"
         android:src = "@drawable/girltwo" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/myrecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/pupil_name">
+    </android.support.v7.widget.RecyclerView>
+
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

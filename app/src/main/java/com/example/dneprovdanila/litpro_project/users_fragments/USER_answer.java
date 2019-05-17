@@ -25,11 +25,13 @@ public class USER_answer extends AppCompatActivity implements  View.OnClickListe
 
 
     TextView feedback;
+    TextView mark;
 
     String composition_text;
     String feedback_text;
     String title_text;
     String composition_id;
+    String mark_text;
 
     DatabaseReference dRef;
 
@@ -48,14 +50,19 @@ public class USER_answer extends AppCompatActivity implements  View.OnClickListe
 
 
         feedback = (TextView)findViewById(R.id.feedback);
+        mark = (TextView)findViewById(R.id.mark);
 
         composition_text = getIntent().getExtras().getString("composition");
         feedback_text = getIntent().getExtras().getString("feedback");
         title_text = getIntent().getExtras().getString("title");
         composition_id = getIntent().getExtras().getString("composition_id");
+        mark_text = getIntent().getExtras().getString("mark_text");
+
 
 
         feedback.setText(feedback_text);
+        mark.setText(mark_text);
+
 
 
 
@@ -102,8 +109,9 @@ public class USER_answer extends AppCompatActivity implements  View.OnClickListe
 
                 Intent intent = new Intent(USER_answer.this, USER_composition.class);
 
-                intent.putExtra("feedback", feedback_text);
                 intent.putExtra("title", title_text);
+                intent.putExtra("feedback", feedback_text);
+                intent.putExtra("mark_text", mark_text);
                 intent.putExtra("composition", composition_text);
                 intent.putExtra("composition_id", composition_id);
 

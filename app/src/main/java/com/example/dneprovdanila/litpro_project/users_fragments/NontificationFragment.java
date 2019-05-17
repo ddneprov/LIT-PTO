@@ -76,16 +76,68 @@ public class NontificationFragment extends Fragment {
 
                     final String listPostKey = getRef(position).getKey().toString();
 
+                    //final String author_of_this_composition;
+                    final String this_user = currentUser.getUid().toString();
 
-                    if(model.getChecked())
+
+                    // смотрим автора этого сочинения
+                    FirebaseDatabase.getInstance().getReference().child("Compositions").child("Day1").child(listPostKey).child("author_id").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists())
+                            {
+                                final String author_of_this_composition = dataSnapshot.getValue(String.class);
+                                if (this_user.equals(author_of_this_composition) && model.getChecked())
+                                {
+                                    final String user_id = model.getAuthor_id();
+                                    final String staff_id = currentUser.getUid();
+
+
+                                    viewHolder.setTitle(model.getComposition_title());
+                                    viewHolder.setName(model.getAuthor_name());
+
+                                    viewHolder.kView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent(getActivity(), USER_composition.class);
+
+                                            intent.putExtra("feedback", model.getFeedback().toString());
+                                            intent.putExtra("author", model.getAuthor_name().toString());
+                                            intent.putExtra("composition", model.getComposition().toString());
+                                            intent.putExtra("composition_id", listPostKey.toString());
+                                            intent.putExtra("title", model.getComposition_title().toString());
+                                            intent.putExtra("mark_text", Integer.toString(model.getMark()));
+
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+
+
+
+
+
+
+
+
+
+
+                    /*if(model.getChecked())
                     {
                         final String user_id = model.getAuthor_id();
                         final String staff_id = currentUser.getUid();
 
                         Log.e(TAG, "!CHEKED");
 
-                      /*  viewHolder.setTitle(model.getComposition_title());
-                        viewHolder.setName(model.getAuthor_name());*/
+                      *//*  viewHolder.setTitle(model.getComposition_title());
+                        viewHolder.setName(model.getAuthor_name());*//*
 
 
                         viewHolder.setTitle(model.getComposition_title());
@@ -110,7 +162,7 @@ public class NontificationFragment extends Fragment {
                     else
                     {
                         Log.e(TAG, "non checked");
-                    }
+                    }*/
                 }
             };
             composition_RW.setAdapter(firebaseRecyclerAdapter);

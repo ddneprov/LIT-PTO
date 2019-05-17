@@ -1,26 +1,35 @@
 package com.example.dneprovdanila.litpro_project.users_fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.dneprovdanila.litpro_project.R;
 import com.example.dneprovdanila.litpro_project.User;
+import com.example.dneprovdanila.litpro_project.staff_fragments.STAFF_profile_fragment;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class ProfileFragment extends Fragment {
@@ -36,10 +45,15 @@ public class ProfileFragment extends Fragment {
 
 
 
+    private RecyclerView mBlogList;
+    public ImageView settings;
+    FirebaseUser currentUser;
+
+    Integer pupil_current_namber = 0;
+
     public ProfileFragment() {
     }
 
-    public ImageView settings;
 
 
     @Nullable
@@ -53,9 +67,18 @@ public class ProfileFragment extends Fragment {
         myRef = FirebaseDatabase.getInstance().getReference();
         myRef.keepSynced(true);
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         String RegisteredUserID = currentUser.getUid(); // взяли id
         jLoginDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(RegisteredUserID);
+
+
+
+        mBlogList = (RecyclerView) view.findViewById(R.id.myrecyclerview);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mBlogList.setLayoutManager(layoutManager);
+
+
 
         jLoginDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,6 +116,57 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+            if (mAuth.getCurrentUser() != null) {
+
+                pupil_current_namber = 0;
+
+                FirebaseRecyclerAdapter<User, ProfileFragment.UserViewholder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<User, ProfileFragment.UserViewholder>
+                        (User.class, R.layout.pupil_card_mark, ProfileFragment.UserViewholder.class, myRef.child("Users")) {
+
+                    @Override
+                    protected void populateViewHolder(UserViewholder viewHolder, User model, int position) {
+                        viewHolder.setName(model.getName()); // выводим имя
+                        viewHolder.setNumber(++position); // номер студента в списке
+                        viewHolder.setPoints(Integer.toString(model.getPoints()));
+                        final String user_id = model.getId();
+                        final String staff_id = currentUser.getUid();
+
+                        //Switch select_status = (Switch) viewHolder.mView.findViewById(R.id.select_status);
+                    }
+                };
+                mBlogList.setAdapter(firebaseRecyclerAdapter);
+            }
+    }
+
+    public static class UserViewholder extends RecyclerView.ViewHolder {
+        View mView;
+
+        public UserViewholder(View itemView) {
+            super(itemView);
+            mView = itemView;
+
+        }
+
+        public void setName(String name){
+            TextView block_name =  (TextView)mView.findViewById(R.id.post_title);
+            block_name.setText(name);
+        }
+
+        public void setNumber(Integer number)
+        {
+            TextView pupil_number = (TextView)mView.findViewById(R.id.pupil_number);
+            pupil_number.setText(String.valueOf(number));
+        }
+
+        public void setPoints(String points)
+        {
+            TextView pupil_points = (TextView)mView.findViewById(R.id.pupil_points);
+            pupil_points.setText(points);
+        }
+    }
 
 }
 

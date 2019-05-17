@@ -55,7 +55,7 @@
         android:layout_height="130dp"
         android:layout_below="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/girlone"
+        android:src="@drawable/girlfour"
         app:civ_border_width="1dp"
         app:civ_border_color="#c9c9c9"/>
 

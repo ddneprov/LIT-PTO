@@ -38,7 +38,7 @@ public class START_activity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (mAuth.getCurrentUser() != null /*&& mAuth.getCurrentUser().isEmailVerified()*/) {
+        if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()) {
 
 
             String RegisteredUserID = mAuth.getCurrentUser().getUid(); // взяли id
@@ -81,8 +81,8 @@ public class START_activity extends AppCompatActivity {
 
             //TODO: придумай как избавиться
            /* finish();
-            startActivity(new Intent(START_activity.this, LogInActivity.class));
-*/
+            startActivity(new Intent(START_activity.this, LogInActivity.class));*/
+
 
 
         }
@@ -91,5 +91,7 @@ public class START_activity extends AppCompatActivity {
             finish();
             startActivity(new Intent(START_activity.this, LogInActivity.class));
         }
+        //finish();
+        //startActivity(new Intent(START_activity.this, LogInActivity.class));
     }
 }

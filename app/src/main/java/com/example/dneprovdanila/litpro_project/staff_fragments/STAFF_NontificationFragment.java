@@ -116,6 +116,8 @@ public class STAFF_NontificationFragment extends Fragment {
                                                 intent.putExtra("author", model.getAuthor_name().toString());
                                                 intent.putExtra("composition", model.getComposition().toString());
                                                 intent.putExtra("composition_id", listPostKey.toString());
+                                                intent.putExtra("author_id", model.getAuthor_id().toString());
+
 
                                                 startActivity(intent);
                                             }

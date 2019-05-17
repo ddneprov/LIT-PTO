@@ -86,6 +86,8 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
 
 
 
+
+
         if (savedInstanceState != null) {
             String t_composition = savedInstanceState.getString("composition");
             String t_composition_title = savedInstanceState.getString("composition_title");
@@ -124,7 +126,8 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
             public void onClick(View view) {
 
 
-                //TODO: а если ни к кому не привязан ?
+                send();
+                /*//TODO: а если ни к кому не привязан ?
                 Bottom_Sheet_Dialog bottomSheet = new Bottom_Sheet_Dialog();
                 bottomSheet.show(getFragmentManager(), "exemple_bottom_sheet");
 
@@ -134,17 +137,15 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
                     final int words = Integer.parseInt(value);
                     final String author_id = FirebaseAuth.getInstance().getCurrentUser().getUid();// взяли id
 
-                    myRef.child("Users").child(author_id).addListenerForSingleValueEvent(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(author_id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists())
                             {
-
-
                                 User user = dataSnapshot.getValue(User.class);
                                 String name = user.getName().toString();
                                 Integer points = user.getPoints();
-                                myRef.child("Users").child(author_id).child("points").setValue(++points);
+                                FirebaseDatabase.getInstance().getReference().child("Users").child(author_id).child("points").setValue(++points);
 
 
                                 Composition new_composition = new Composition(author_id.toString(), name, composition_title.getText().toString().trim(), composition.getText().toString().trim(), false,"", 0, words);
@@ -158,7 +159,7 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
                             Log.e(TAG, "four");
                         }
                     });
-                }
+                }*/
 
             }
         });
@@ -170,6 +171,42 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
 
 
 
+    public void send()
+    {
+        //TODO: а если ни к кому не привязан ?
+        Bottom_Sheet_Dialog bottomSheet = new Bottom_Sheet_Dialog();
+        bottomSheet.show(getFragmentManager(), "exemple_bottom_sheet");
+
+        if (!flag)
+        {
+            String value= words_count.getText().toString();
+            final int words = Integer.parseInt(value);
+            final String author_id = FirebaseAuth.getInstance().getCurrentUser().getUid();// взяли id
+
+            FirebaseDatabase.getInstance().getReference().child("Users").child(author_id).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists())
+                    {
+                        User user = dataSnapshot.getValue(User.class);
+                        String name = user.getName().toString();
+                        Integer points = user.getPoints();
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(author_id).child("points").setValue(++points);
+
+
+                        Composition new_composition = new Composition(author_id.toString(), name, composition_title.getText().toString().trim(), composition.getText().toString().trim(), false,"", 0, words);
+                        FirebaseDatabase.getInstance().getReference().child("Compositions").child("Day1").push().setValue(new_composition);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e(TAG, "four");
+                }
+            });
+        }
+    }
 
 
     @Override
@@ -182,6 +219,8 @@ public class TaskFragment extends Fragment implements Bottom_Sheet_Dialog.Bottom
             composition.setText(a);
         }
     }
+
+
 
     @Override
     public void onButtonClicked(Boolean agreement) {

@@ -27,27 +27,7 @@
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@+id/profilePhoto"
         android:fontFamily="@font/old_standard_tt"
-        android:textSize="14dp" />
+        android:textSize="16dp" />
 
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profilePhoto"
-        android:background="@drawable/girlsix"
-        android:layout_toLeftOf="@+id/select_status"
-        android:layout_width="65dp"
-        android:layout_height="65dp" />
-
-
-
-    <ImageView
-        android:id="@+id/already_read"
-        android:background="@drawable/alarm"
-        android:layout_below="@+id/time"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_width="35dp"
-        android:layout_height="35dp" />
 
 </RelativeLayout>

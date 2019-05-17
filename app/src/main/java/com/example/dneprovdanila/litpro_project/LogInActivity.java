@@ -88,10 +88,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-
-
-        Toast.makeText(getApplicationContext(), "рас", Toast.LENGTH_SHORT).show();
-
+        //Toast.makeText(getApplicationContext(), "рас", Toast.LENGTH_SHORT).show();
 
         progressBar.setVisibility(View.VISIBLE);
             Task<AuthResult> authResultTask = mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -109,13 +106,28 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                 if (dataSnapshot.exists()) {
 
 
-                                    finish();
-                                    Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "dataSnapshot юзера не существует", Toast.LENGTH_SHORT).show();
-                                }
+                                    FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
+                                            boolean isEmailVerified = user.isEmailVerified();
+                                            if(isEmailVerified)
+                                            {
+                                                finish();
+                                                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                            else
+                                            {
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "Подтвердите письмо на почте", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
 
+                                } /*else {
+                                    Toast.makeText(getApplicationContext(), "dataSnapshot юзера не существует", Toast.LENGTH_SHORT).show();
+                                }*/
                             }
 
                             @Override
@@ -129,44 +141,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-                        /*DatabaseReference a = FirebaseDatabase.getInstance().getReference().child("Users");
-                        DatabaseReference b = FirebaseDatabase.getInstance().getReference().child("Staff");
-
-
-                        ValueEventListener listner = new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-
-                                    Toast.makeText(getApplicationContext(), "dataSnapshot существует !!!", Toast.LENGTH_SHORT).show();
-
-
-                                    if (dataSnapshot.getRef() == FirebaseDatabase.getInstance().getReference().child("Users").child(RegisteredUserID))
-                                    {
-                                        finish();
-                                        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                    }
-                                    else if (dataSnapshot.getRef() == FirebaseDatabase.getInstance().getReference().child("Staff").child(RegisteredUserID))
-                                    {
-                                        finish();
-                                        Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }
-                                else
-                                {
-                                    Toast.makeText(getApplicationContext(), "dataSnapshot  не существует", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        };
-                        a.addValueEventListener(listner);
-                        b.addValueEventListener(listner);*/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -197,13 +171,26 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
-                                    finish();
-                                    Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
-                                    startActivity(intent);
-                                }
-                                else
-                                {
-                                    Toast.makeText(getApplicationContext(), "dataSnapshot стафа не существует", Toast.LENGTH_SHORT).show();
+                                    //finish();
+
+                                    FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
+                                            boolean isEmailVerified = user.isEmailVerified();
+                                            if(isEmailVerified)
+                                            {
+                                                finish();
+                                                Intent intent = new Intent(LogInActivity.this, STAFF_MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                            else
+                                            {
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "Подтвердите письмо на почте", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
                                 }
                             }
 
@@ -219,24 +206,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                    /*FirebaseAuth.getInstance().getCurrentUser().reload().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
-                                            boolean isEmailVerified = user.isEmailVerified();
-                                            if(isEmailVerified)
-                                            {
-                                                finish();
-                                                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                                                startActivity(intent);
-                                            }
-                                            else
-                                            {
-                                                progressBar.setVisibility(View.INVISIBLE);
-                                                Toast.makeText(getApplicationContext(), "Подтвердите письмо на почте", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });*/
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

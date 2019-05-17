@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dneprovdanila.litpro_project.users_fragments.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -155,12 +156,12 @@ import java.util.ArrayList;
                         if (task.isSuccessful()) {
 
                             String id = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
-                            //User user = new User(email, display_name, password, 0, id, "");
+                            User user = new User(email, display_name, password, 0, id, "");
 
-                            ArrayList<String> pupils = new ArrayList<String>();
-                            Staff staff = new Staff(display_name, email, pupils, 0, "", id);
+                            //ArrayList<String> pupils = new ArrayList<String>();
+                            //Staff staff = new Staff(display_name, email, pupils, 0, "", id);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                           /* FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
+                            /*FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -174,9 +175,9 @@ import java.util.ArrayList;
                                 }
                             });*/
 
-                            FirebaseDatabase.getInstance().getReference("Staff").child(FirebaseAuth.getInstance()
+                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid())
-                                    .setValue(staff).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful())
@@ -186,9 +187,6 @@ import java.util.ArrayList;
                                         FirebaseAuth auth = FirebaseAuth.getInstance();
                                         FirebaseUser user = auth.getCurrentUser();
 
-
-                                        /*startActivity(new Intent(SignUpActivity.this, STAFF_MainActivity.class));
-                                        finish();*/
 
                                         user.sendEmailVerification()
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {

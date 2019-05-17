@@ -29,6 +29,7 @@ public class STAFF_composition extends AppCompatActivity implements  View.OnClic
     String author_text;
     String title_text;
     String composition_id;
+    String author_id;
 
     private static final int SWIPE_MIN_DISTANCE = 130;
     private static final int SWIPE_MAX_DISTANCE = 300;
@@ -53,6 +54,7 @@ public class STAFF_composition extends AppCompatActivity implements  View.OnClic
         author_text = getIntent().getExtras().getString("author");
         title_text = getIntent().getExtras().getString("title");
         composition_id = getIntent().getExtras().getString("composition_id");
+        author_id = getIntent().getExtras().getString("author_id");
 
         author.setText(author_text);
         composition.setText(composition_text);
@@ -109,6 +111,9 @@ public class STAFF_composition extends AppCompatActivity implements  View.OnClic
                 intent.putExtra("author", author_text);
                 intent.putExtra("composition", composition_text);
                 intent.putExtra("composition_id", composition_id);
+                intent.putExtra("author_id", author_id);
+
+
 
                 startActivity(intent);
             }

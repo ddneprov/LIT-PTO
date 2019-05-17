@@ -29,6 +29,7 @@ public class USER_composition extends AppCompatActivity implements  View.OnClick
     String feedback_text;
     String title_text;
     String composition_id;
+    String mark_text;
 
     private static final int SWIPE_MIN_DISTANCE = 130;
     private static final int SWIPE_MAX_DISTANCE = 300;
@@ -54,6 +55,7 @@ public class USER_composition extends AppCompatActivity implements  View.OnClick
         feedback_text = getIntent().getExtras().getString("feedback");
         composition_text = getIntent().getExtras().getString("composition");
         composition_id = getIntent().getExtras().getString("composition_id");
+        mark_text = getIntent().getExtras().getString("mark_text");
 
 
         composition.setText(composition_text);
@@ -105,8 +107,10 @@ public class USER_composition extends AppCompatActivity implements  View.OnClick
 
                 intent.putExtra("title", title_text);
                 intent.putExtra("feedback", feedback_text);
+                intent.putExtra("mark_text", mark_text);
                 intent.putExtra("composition", composition_text);
                 intent.putExtra("composition_id", composition_id);
+
 
                 startActivity(intent);
             }

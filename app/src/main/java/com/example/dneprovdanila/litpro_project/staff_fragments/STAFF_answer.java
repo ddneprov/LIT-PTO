@@ -36,6 +36,8 @@ public class STAFF_answer extends AppCompatActivity implements  View.OnClickList
     String author_text;
     String title_text;
     String composition_id;
+    String author_id;
+
 
     DatabaseReference myRef;
     FirebaseAuth mAuth;
@@ -60,6 +62,8 @@ public class STAFF_answer extends AppCompatActivity implements  View.OnClickList
         author_text = getIntent().getExtras().getString("author");
         title_text = getIntent().getExtras().getString("title");
         composition_id = getIntent().getExtras().getString("composition_id");
+        author_id = getIntent().getExtras().getString("author_id");
+
 
         lSwipeDetector = new GestureDetectorCompat(this, new MyGestureListener());
         main_layout = (RelativeLayout) findViewById(R.id.main_layout);
@@ -98,6 +102,27 @@ public class STAFF_answer extends AppCompatActivity implements  View.OnClickList
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 });
+
+
+
+                myRef.child("Users").child(author_id).child("points").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists())
+                        {
+
+                            Integer zp = Integer.parseInt(dataSnapshot.getValue().toString());
+                            zp += Integer.parseInt(mark.getText().toString());
+                            myRef.child("Users").child(author_id).child("points").setValue(zp);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+
 
                 FirebaseDatabase.getInstance().getReference().child("Compositions").child("Day1").child(composition_id).child("feedback").setValue(answer.getText().toString());
                 FirebaseDatabase.getInstance().getReference().child("Compositions").child("Day1").child(composition_id).child("mark").setValue(Integer.parseInt(mark.getText().toString()));
@@ -139,10 +164,11 @@ public class STAFF_answer extends AppCompatActivity implements  View.OnClickList
                 overridePendingTransition(R.anim.trans_left_in, R.anim.trans_left_out);
                 Intent intent = new Intent(STAFF_answer.this, STAFF_composition.class);
 
-                intent.putExtra("title", composition_text);
+                intent.putExtra("title", title_text);
                 intent.putExtra("author", author_text);
-                intent.putExtra("composition", title_text);
-                intent.putExtra("composition_id", title_text);
+                intent.putExtra("composition", composition_text);
+                intent.putExtra("composition_id", composition_id);
+                intent.putExtra("author_id", author_id);
 
                 startActivity(intent);
             }
