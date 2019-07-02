@@ -10,7 +10,7 @@
 #### *Несколько скринов*  
 
 ##### *Аутентификация*  
-![Альтернативный текст](https://ibb.co/LJmYjD5)
+![Альтернативный текст](https://i.ibb.co/P9KFXsQ/LWfkaftm3mc.jpg)
 #### *Личный кабинет проверяющего*  
 ![Альтернативный текст](https://i.ibb.co/D7pJNhY/Screenshot-2019-05-20-18-28-57-555-com-example-dneprovdanila-litpro-project.png)
 
