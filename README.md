@@ -20,6 +20,8 @@ Baas - Firebase
 Пояснительная записка, скриншоты и демо:
 https://drive.google.com/drive/folders/1gF91APwj7mo4scJPC4aLPAygniD2bZNB?usp=sharing
 
+Абсолютно все подробно описано в ПЗ
+
 #### *Несколько скринов*  
 
 ##### *Аутентификация*  
