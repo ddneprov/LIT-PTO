@@ -24,8 +24,6 @@ https://drive.google.com/drive/folders/1gF91APwj7mo4scJPC4aLPAygniD2bZNB?usp=sha
 
 ##### *Аутентификация*  
 ![Альтернативный текст](https://i.ibb.co/P9KFXsQ/LWfkaftm3mc.jpg)
-#### *Личный кабинет проверяющего*  
-![Альтернативный текст](https://i.ibb.co/D7pJNhY/Screenshot-2019-05-20-18-28-57-555-com-example-dneprovdanila-litpro-project.png)
 
 #### *Окно для ввода сочинений (у ученика)*  
 ![Альтернативный текст](https://i.ibb.co/DY7sMQW/Screenshot-2019-05-20-18-30-39-071-com-example-dneprovdanila-litpro-project.png)
